@@ -113,10 +113,11 @@ The first few rows of our first file should look like this:
 
 We could go to this page and download each one individually, then move each one from the `Downloads` folder to `Inflam_exercise`, but now we know enough shell scripting to automate the process (in the SHELL):
 
-```
-cd /Desktop/Inflam_exercise/
-curl -O https://raw.githubusercontent.com/UMSWC/2015-08-26-umswc/gh-pages/Lessons/r_inflam/data/inflammation-[01-12].csv
-```
+~~~ {.bash}
+$ cd Desktop/Inflam_exercise/
+$ curl -O https://raw.githubusercontent.com/UMSWC/2015-08-26-umswc/gh-pages/Lessons/r_inflam/data/inflammation-[01-12].csv
+~~~ 
+
 We `cd` to the `Inflam_exercise` directory so that the files will be downloaded there
 `-O` tells curl to save the document as the same filename it has on the web
 `[01-12]` tells curl to use the numbers from 01 to 12 as wildcards, and get all twelve files that fit that name.
@@ -127,10 +128,25 @@ Click on any of the inflammation files, and what you get is still a formatted we
 
 We can check that everything downloaded correctly by looking in the `Inflam_exercise` folder:
 
-```
-ls -lh
-```
-Each file should be about 5.2K.
+~~~ {.bash}
+$ ls -lh
+~~~
+~~~{.output}
+total 192
+-rw-r--r--  1 Amanda  staff   5.2K Aug  5 16:40 inflammation-01.csv
+-rw-r--r--  1 Amanda  staff   5.2K Aug  5 16:40 inflammation-02.csv
+-rw-r--r--  1 Amanda  staff   5.2K Aug  5 16:40 inflammation-03.csv
+-rw-r--r--  1 Amanda  staff   5.2K Aug  5 16:40 inflammation-04.csv
+-rw-r--r--  1 Amanda  staff   5.2K Aug  5 16:40 inflammation-05.csv
+-rw-r--r--  1 Amanda  staff   5.2K Aug  5 16:40 inflammation-06.csv
+-rw-r--r--  1 Amanda  staff   5.2K Aug  5 16:40 inflammation-07.csv
+-rw-r--r--  1 Amanda  staff   5.2K Aug  5 16:40 inflammation-08.csv
+-rw-r--r--  1 Amanda  staff   5.2K Aug  5 16:40 inflammation-09.csv
+-rw-r--r--  1 Amanda  staff   5.2K Aug  5 16:40 inflammation-10.csv
+-rw-r--r--  1 Amanda  staff   5.2K Aug  5 16:40 inflammation-11.csv
+-rw-r--r--  1 Amanda  staff   5.2K Aug  5 16:40 inflammation-12.csv
+~~~
+
 
 ### Loading Data
   
