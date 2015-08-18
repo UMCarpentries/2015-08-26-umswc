@@ -341,7 +341,7 @@ Now that we know how to assign things to variables, let's re-run `read.csv` and 
 
 
 ~~~{.r}
-dat <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
+inflam <- read.csv(file = "inflammation-01.csv", header = FALSE)
 ~~~
 
 This statement doesn't produce any output because assignment doesn't display anything.
@@ -350,7 +350,7 @@ However, for large data sets it is convenient to use the function `head` to disp
 
 
 ~~~{.r}
-head(dat)
+head(inflam)
 ~~~
 
 
@@ -394,11 +394,11 @@ age <- age - 20
 ### Manipulating Data
 
 Now that our data is loaded in memory, we can start doing things with it.
-First, let's ask what type of thing `dat` is:
+First, let's ask what type of thing `inflam` is:
 
 
 ~~~{.r}
-class(dat)
+class(inflam)
 ~~~
 
 
@@ -415,7 +415,7 @@ We can see the dimensions, or [shape](reference.html#shape-(of-an-array)), of th
 
 
 ~~~{.r}
-dim(dat)
+dim(inflam)
 ~~~
 
 
@@ -425,14 +425,14 @@ dim(dat)
 
 ~~~
 
-This tells us that our data frame, `dat`, has 60 rows and 40 columns.
+This tells us that our data frame, `inflam`, has 60 rows and 40 columns.
 
 If we want to get a single value from the data frame, we can provide an [index](reference.html#index) in square brackets, just as we do in math:
 
 
 ~~~{.r}
-# first value in dat
-dat[1, 1]
+# first value in inflam
+inflam[1, 1]
 ~~~
 
 
@@ -445,8 +445,8 @@ dat[1, 1]
 
 
 ~~~{.r}
-# middle value in dat
-dat[30, 20]
+# middle value in inflam
+inflam[30, 20]
 ~~~
 
 
@@ -461,7 +461,7 @@ For example, we can select the first ten days (columns) of values for the first 
 
 
 ~~~{.r}
-dat[1:4, 1:10]
+inflam[1:4, 1:10]
 ~~~
 
 
@@ -481,7 +481,7 @@ The slice does not need to start at 1, e.g. the line below selects rows 5 throug
 
 
 ~~~{.r}
-dat[5:10, 1:10]
+inflam[5:10, 1:10]
 ~~~
 
 
@@ -500,7 +500,7 @@ We can use the function `c`, which stands for **c**ombine, to select non-contigu
 
 
 ~~~{.r}
-dat[c(3, 8, 37, 56), c(10, 14, 29)]
+inflam[c(3, 8, 37, 56), c(10, 14, 29)]
 ~~~
 
 
@@ -516,12 +516,12 @@ dat[c(3, 8, 37, 56), c(10, 14, 29)]
 
 We also don't have to provide a slice for either the rows or the columns.
 If we don't include a slice for the rows, R returns all the rows; if we don't include a slice for the columns, R returns all the columns.
-If we don't provide a slice for either rows or columns, e.g. `dat[, ]`, R returns the full data frame.
+If we don't provide a slice for either rows or columns, e.g. `inflam[, ]`, R returns the full data frame.
 
 
 ~~~{.r}
 # All columns from row 5
-dat[5, ]
+inflam[5, ]
 ~~~
 
 
@@ -540,7 +540,7 @@ dat[5, ]
 
 ~~~{.r}
 # All rows from column 16
-dat[, 16]
+inflam[, 16]
 ~~~
 
 
@@ -549,8 +549,49 @@ dat[, 16]
  [1]  4  4 15  8 10 15 13  9 11  6  3  8 12  3  5 10 11  4 11 13 15  5 14
 [24] 13  4  9 13  6  7  6 14  3 15  4 15 11  7 10 15  6  5  6 15 11 15  6
 [47] 11 15 14  4 10 15 11  6 13  8  4 13 12  9
-
 ~~~
+
+If our data has column headers, we can also ask for data by name
+
+~~~{.r}
+colnames(inflam) 
+~~~
+~~~{.output}
+ [1] "V1"  "V2"  "V3"  "V4"  "V5"  "V6"  "V7"  "V8" 
+ [9] "V9"  "V10" "V11" "V12" "V13" "V14" "V15" "V16"
+[17] "V17" "V18" "V19" "V20" "V21" "V22" "V23" "V24"
+[25] "V25" "V26" "V27" "V28" "V29" "V30" "V31" "V32"
+[33] "V33" "V34" "V35" "V36" "V37" "V38" "V39" "V40"
+~~~
+~~~{.r}
+# All rows from column 16
+inflam$V16
+~~~
+~~~{.output}
+[1]  4  4 15  8 10 15 13  9 11  6  3  8 12  3  5 10 11
+[18]  4 11 13 15  5 14 13  4  9 13  6  7  6 14  3 15  4
+[35] 15 11  7 10 15  6  5  6 15 11 15  6 11 15 14  4 10
+[52] 15 11  6 13  8  4 13 12  9
+~~~
+
+Our data didn't have descriptive names for the rows or columns, so R automatically
+named them 'vector1', 'vector2', 'vector3', etc. I like to have descriptive names,
+because it makes it easier for me to keep track of. So lets rename the columns:
+
+~~~{.r}
+colnames( inflam ) <- sub( "^V", "Day_", colnames( inflam ))
+~~~
+
+`sub` does a find and replace. We're replacing all of the 'V's with 'Day_', because
+I know that this data is many rows of patient data collected over 40 days. The '^' stands 
+for the invisible character that begins lines of text, so this will only replace the a 'V'
+if it's the first letter of a line. We could do the same thing with our row names:
+
+~~~{.r}
+row.names( inflam ) <- sub( "^", "Patient_", row.names( inflam ))
+~~~
+
+
 
 Now let's perform some common mathematical operations to learn about our inflammation data.
 When analyzing data we often want to look at partial statistics, such as the maximum value per patient or the average value per day.
@@ -559,7 +600,7 @@ One way to do this is to select the data we want to create a new temporary data 
 
 ~~~{.r}
 # first row, all of the columns
-patient_1 <- dat[1, ]
+patient_1 <- inflam[1, ]
 # max inflammation for patient 1
 max(patient_1)
 ~~~
@@ -577,7 +618,7 @@ Instead, we can combine the selection and the function call:
 
 ~~~{.r}
 # max inflammation for patient 2
-max(dat[2, ])
+max(inflam[2, ])
 ~~~
 
 
@@ -592,7 +633,7 @@ R also has functions for other common calculations, e.g. finding the minimum, me
 
 ~~~{.r}
 # minimum inflammation on day 7
-min(dat[, 7])
+min(inflam[, 7])
 ~~~
 
 
@@ -606,7 +647,7 @@ min(dat[, 7])
 
 ~~~{.r}
 # mean inflammation on day 7
-mean(dat[, 7])
+mean(inflam[, 7])
 ~~~
 
 
@@ -620,7 +661,7 @@ mean(dat[, 7])
 
 ~~~{.r}
 # median inflammation on day 7
-median(dat[, 7])
+median(inflam[, 7])
 ~~~
 
 
@@ -634,7 +675,7 @@ median(dat[, 7])
 
 ~~~{.r}
 # standard deviation of inflammation on day 7
-sd(dat[, 7])
+sd(inflam[, 7])
 ~~~
 
 
@@ -662,17 +703,17 @@ Thus, to obtain the average inflammation of each patient we will need to calcula
 
 
 ~~~{.r}
-avg_patient_inflammation <- apply(dat, 1, mean)
+avg_patient_inflammation <- apply(inflam, 1, mean)
 ~~~
 
 And to obtain the average inflammation of each day we will need to calculate the mean of all of the columns (`MARGIN = 2`) of the data frame.
 
 
 ~~~{.r}
-avg_day_inflammation <- apply(dat, 2, mean)
+avg_day_inflammation <- apply(inflam, 2, mean)
 ~~~
 
-Since the second argument to `apply` is `MARGIN`, the above command is equivalent to `apply(dat, MARGIN = 2, mean)`.
+Since the second argument to `apply` is `MARGIN`, the above command is equivalent to `apply(inflam, MARGIN = 2, mean)`.
 We'll learn why this is so in the next lesson.
 
 > ## Tip {.callout}
@@ -730,10 +771,10 @@ We'll learn why this is so in the next lesson.
 > To do this you would extract the relevant slice from the data frame and calculate the maximum value.
 > Which of the following lines of R code gives the correct answer?
 >
-> (a) `max(dat[5, ])`
-> (b) `max(dat[3:7, 5])`
-> (c) `max(dat[5, 3:7])`
-> (d) `max(dat[5, 3, 7])`
+> (a) `max(inflam[5, ])`
+> (b) `max(inflam[3:7, 5])`
+> (c) `max(inflam[5, 3:7])`
+> (d) `max(inflam[5, 3, 7])`
 
 ### Plotting
 
@@ -741,7 +782,7 @@ The mathematician Richard Hamming once said, "The purpose of computing is insigh
 Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R's plotting features.
 
 Let's take a look at the average inflammation over time.
-Recall that we already calculated these values above using `apply(dat, 2, mean)` and saved them in the variable `avg_day_inflammation`.
+Recall that we already calculated these values above using `apply(inflam, 2, mean)` and saved them in the variable `avg_day_inflammation`.
 Plotting the values is done with the function `plot`.
 
 
@@ -758,7 +799,7 @@ Let's have a look at two other statistics: the maximum and minimum inflammation 
 
 
 ~~~{.r}
-max_day_inflammation <- apply(dat, 2, max)
+max_day_inflammation <- apply(inflam, 2, max)
 plot(max_day_inflammation)
 ~~~
 
@@ -766,7 +807,7 @@ plot(max_day_inflammation)
 
 
 ~~~{.r}
-min_day_inflammation <- apply(dat, 2, min)
+min_day_inflammation <- apply(inflam, 2, min)
 plot(min_day_inflammation)
 ~~~
 
