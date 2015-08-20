@@ -589,8 +589,17 @@ if it's the first letter of a line. We could do the same thing with our row name
 
 ~~~{.r}
 row.names( inflam ) <- sub( "^", "Patient_", row.names( inflam ))
+head( inflam )
 ~~~
-
+~~~{.output}
+          Day_1 Day_2 Day_3 Day_4 Day_5 Day_6 Day_7 Day_8
+Patient_1     0     0     1     3     1     2     4     7
+Patient_2     0     1     2     1     2     1     3     2
+Patient_3     0     1     1     3     3     2     6     2
+Patient_4     0     0     2     0     4     2     2     1
+Patient_5     0     1     1     3     3     1     3     5
+Patient_6     0     0     1     2     2     4     2     1
+~~~
 
 
 Now let's perform some common mathematical operations to learn about our inflammation data.
@@ -685,6 +694,13 @@ sd(inflam[, 7])
 
 ~~~
 
+> ## Challenge - Saving summary stats {.challenge}
+>
+> Save the mean of day 9 to a variable called "D9_mean"
+>
+> Save the sd of day 9 to a variable called "D9_sd"
+
+
 What if we need the maximum inflammation for all patients, or the average for each day?
 As the diagram below shows, we want to perform the operation across a margin of the data frame:
 
@@ -721,6 +737,14 @@ We'll learn why this is so in the next lesson.
 > Some common operations have more efficient alternatives. For example, you
 > can calculate the row-wise or column-wise means with `rowMeans` and
 > `colMeans`, respectively.
+
+> ## Challenge - Saving summary stats {.challenge}
+>
+> Save the mean of patient 15 to a variable called "P15_mean"
+>
+> Save the sd of patient 15 to a variable called "P15_sd"
+>
+
 
 > ## Challenge - Slicing (subsetting) data {.challenge}
 >
