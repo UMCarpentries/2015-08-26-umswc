@@ -302,7 +302,15 @@ inflam$V16</code></pre></div>
 <p>Our data didn’t have descriptive names for the rows or columns, so R automatically named them ‘vector1’, ‘vector2’, ‘vector3’, etc. I like to have descriptive names, because it makes it easier for me to keep track of. So lets rename the columns:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>( inflam ) &lt;-<span class="st"> </span><span class="kw">sub</span>( <span class="st">&quot;^V&quot;</span>, <span class="st">&quot;Day_&quot;</span>, <span class="kw">colnames</span>( inflam ))</code></pre></div>
 <p><code>sub</code> does a find and replace. We’re replacing all of the ‘V’s with ’Day_’, because I know that this data is many rows of patient data collected over 40 days. The ‘^’ stands for the invisible character that begins lines of text, so this will only replace the a ‘V’ if it’s the first letter of a line. We could do the same thing with our row names:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">row.names</span>( inflam ) &lt;-<span class="st"> </span><span class="kw">sub</span>( <span class="st">&quot;^&quot;</span>, <span class="st">&quot;Patient_&quot;</span>, <span class="kw">row.names</span>( inflam ))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">row.names</span>( inflam ) &lt;-<span class="st"> </span><span class="kw">sub</span>( <span class="st">&quot;^&quot;</span>, <span class="st">&quot;Patient_&quot;</span>, <span class="kw">row.names</span>( inflam ))
+<span class="kw">head</span>( inflam )</code></pre></div>
+<pre class="output"><code>          Day_1 Day_2 Day_3 Day_4 Day_5 Day_6 Day_7 Day_8
+Patient_1     0     0     1     3     1     2     4     7
+Patient_2     0     1     2     1     2     1     3     2
+Patient_3     0     1     1     3     3     2     6     2
+Patient_4     0     0     2     0     4     2     2     1
+Patient_5     0     1     1     3     3     1     3     5
+Patient_6     0     0     1     2     2     4     2     1</code></pre>
 <p>Now let’s perform some common mathematical operations to learn about our inflammation data. When analyzing data we often want to look at partial statistics, such as the maximum value per patient or the average value per day. One way to do this is to select the data we want to create a new temporary data frame, and then perform the calculation on this subset:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first row, all of the columns</span>
 patient_1 &lt;-<span class="st"> </span>inflam[<span class="dv">1</span>, ]
@@ -332,6 +340,15 @@ patient_1 &lt;-<span class="st"> </span>inflam[<span class="dv">1</span>, ]
 <span class="kw">sd</span>(inflam[, <span class="dv">7</span>])</code></pre></div>
 <pre class="output"><code>[1] 1.725187
 </code></pre>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="challenge---saving-summary-stats"><span class="glyphicon glyphicon-pencil"></span>Challenge - Saving summary stats</h2>
+</div>
+<div class="panel-body">
+<p>Save the mean of day 9 to a variable called “D9_mean”</p>
+<p>Save the sd of day 9 to a variable called “D9_sd”</p>
+</div>
+</section>
 <p>What if we need the maximum inflammation for all patients, or the average for each day? As the diagram below shows, we want to perform the operation across a margin of the data frame:</p>
 <p><img src="fig/r-operations-across-axes.svg" alt="Operations Across Axes" /></p>
 <p>To support this, we can use the <code>apply</code> function.</p>
@@ -357,6 +374,15 @@ patient_1 &lt;-<span class="st"> </span>inflam[<span class="dv">1</span>, ]
 <p>Some common operations have more efficient alternatives. For example, you can calculate the row-wise or column-wise means with <code>rowMeans</code> and <code>colMeans</code>, respectively.</p>
 </div>
 </aside>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="challenge---saving-summary-stats-1"><span class="glyphicon glyphicon-pencil"></span>Challenge - Saving summary stats</h2>
+</div>
+<div class="panel-body">
+<p>Save the mean of patient 15 to a variable called “P15_mean”</p>
+<p>Save the sd of patient 15 to a variable called “P15_sd”</p>
+</div>
+</section>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
 <h2 id="challenge---slicing-subsetting-data"><span class="glyphicon glyphicon-pencil"></span>Challenge - Slicing (subsetting) data</h2>

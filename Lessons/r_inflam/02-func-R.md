@@ -138,10 +138,10 @@ Real-life functions will usually be larger than the ones shown here--typically h
 >
 > 
 > ~~~{.r}
-> best_practice <- c("Write", "programs", "for", "people", "not", "computers")
-> asterisk <- "***"  # R interprets a variable with a single value as a vector
+> original <- c("Write", "programs", "for", "people", "not", "computers")
+> wrapper <- "***"  # R interprets a variable with a single value as a vector
 >                    # with one element.
-> fence(best_practice, asterisk)
+> fence(original, wrapper)
 > ~~~
 > 
 > 
@@ -253,9 +253,9 @@ span <- function(a) {
   return(diff)
 }
 
-dat <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
+inflam <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
 # span of inflammation data
-span(dat)
+span(inflam)
 ~~~
 
 
@@ -269,7 +269,7 @@ Notice `span` assigns a value to variable called `diff`. We might very well use 
 
 
 ~~~{.r}
-diff <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
+diff <- read.csv(file = "inflammation-01.csv", header = FALSE)
 # span of inflammation data
 span(diff)
 ~~~
