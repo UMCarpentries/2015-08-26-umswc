@@ -30,7 +30,7 @@
           <h2 class="subtitle">Loops in R</h2>
           <section class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <ul>
@@ -41,7 +41,7 @@
 </section>
 <p>In R you have multiple options when repeating calculations: vectorized operations, <code>for</code> loops, and <code>apply</code> functions.</p>
 <p>This lesson is an extension of <a href="03-loops-R.html">Analyzing Multiple Data Sets</a>. In that lesson, we introduced how to run a custom function, <code>analyze</code>, over multiple data files:</p>
-<pre class="sourceCode r"><code class="sourceCode r">analyze &lt;-<span class="st"> </span>function(filename) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">analyze &lt;-<span class="st"> </span>function(filename) {
   <span class="co"># Plots the average, min, and max inflammation over time.</span>
   <span class="co"># Input is character string of a csv file.</span>
   dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> filename, <span class="dt">header =</span> <span class="ot">FALSE</span>)
@@ -51,44 +51,44 @@
   <span class="kw">plot</span>(max_day_inflammation)
   min_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, min)
   <span class="kw">plot</span>(min_day_inflammation)
-}</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">filenames &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;inflammation&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</code></pre>
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filenames &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;inflammation&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <h3 id="vectorized-operations">Vectorized Operations</h3>
 <p>A key difference between R and many other languages is a topic known as vectorization. When you wrote the <code>total</code> function, we mentioned that R already has <code>sum</code> to do this; <code>sum</code> is <em>much</em> faster than the interpreted <code>for</code> loop because <code>sum</code> is coded in C to work with a vector of numbers. Many of R’s functions work this way; the loop is hidden from you in C. Learning to use vectorized operations is a key skill in R.</p>
 <p>For example, to add pairs of numbers contained in two vectors</p>
-<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
-b &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
+b &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span></code></pre></div>
 <p>you could loop over the pairs adding each in turn, but that would be very inefficient in R.</p>
-<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span><span class="kw">numeric</span>(<span class="dt">length =</span> <span class="kw">length</span>(a))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span><span class="kw">numeric</span>(<span class="dt">length =</span> <span class="kw">length</span>(a))
 for (i in <span class="kw">seq_along</span>(a)) {
   res[i] &lt;-<span class="st"> </span>a[i] +<span class="st"> </span>b[i]
 }
-res</code></pre>
+res</code></pre></div>
 <pre class="output"><code> [1]  2  4  6  8 10 12 14 16 18 20
 </code></pre>
 <p>Instead, <code>+</code> is a <em>vectorized</em> function which can operate on entire vectors at once</p>
-<pre class="sourceCode r"><code class="sourceCode r">res2 &lt;-<span class="st"> </span>a +<span class="st"> </span>b
-<span class="kw">all.equal</span>(res, res2)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res2 &lt;-<span class="st"> </span>a +<span class="st"> </span>b
+<span class="kw">all.equal</span>(res, res2)</code></pre></div>
 <pre class="output"><code>[1] TRUE
 </code></pre>
 <h3 id="vector-recycling">Vector Recycling</h3>
 <p>When performing vector operations in R, it is important to know about recycling. If you perform an operation on two or more vectors of unequal length, R will recycle elements of the shorter vector(s) to match the longest vector. For example:</p>
-<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
 b &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">5</span>
-a +<span class="st"> </span>b</code></pre>
+a +<span class="st"> </span>b</code></pre></div>
 <pre class="output"><code> [1]  2  4  6  8 10  7  9 11 13 15
 </code></pre>
 <p>The elements of <code>a</code> and <code>b</code> are added together starting from the first element of both vectors. When R reaches the end of the shorter vector <code>b</code>, it starts again at the first element of <code>b</code> and contines until it reaches the last element of the longest vector <code>a</code>. This behaviour may seem crazy at first glance, but it is very useful when you want to perform the same operation on every element of a vector. For example, say we want to multiply every element of our vector <code>a</code> by 5:</p>
-<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
 b &lt;-<span class="st"> </span><span class="dv">5</span>
-a *<span class="st"> </span>b</code></pre>
+a *<span class="st"> </span>b</code></pre></div>
 <pre class="output"><code> [1]  5 10 15 20 25 30 35 40 45 50
 </code></pre>
 <p>Remember there are no scalars in R, so <code>b</code> is actually a vector of length 1; in order to add its value to every element of <code>a</code>, it is <em>recycled</em> to match the length of <code>a</code>.</p>
 <p>When the length of the longer object is a multiple of the shorter object length (as in our example above), the recycling occurs silently. When the longer object length is not a multiple of the shorter object length, a warning is given:</p>
-<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
 b &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">7</span>
-a +<span class="st"> </span>b</code></pre>
+a +<span class="st"> </span>b</code></pre></div>
 <pre class="output"><code>Warning in a + b: longer object length is not a multiple of shorter object
 length
 </code></pre>
@@ -103,7 +103,7 @@ length
 <li><code>vapply</code> - similar to <code>sapply</code> but you specify the type of object returned by the iterations</li>
 </ul>
 <p>Each of these has an argument <code>FUN</code> which takes a function to apply to each element of the object. Instead of looping over <code>filenames</code> and calling <code>analyze</code>, as you did earlier, you could <code>sapply</code> over <code>filenames</code> with <code>FUN = analyze</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(filenames, <span class="dt">FUN =</span> analyze)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(filenames, <span class="dt">FUN =</span> analyze)</code></pre></div>
 <p>Deciding whether to use <code>for</code> or one of the <code>apply</code> family is really personal preference. Using an <code>apply</code> family function forces to you encapsulate your operations as a function rather than separate calls with <code>for</code>. <code>for</code> loops are often more natural in some circumstances; for several related operations, a <code>for</code> loop will avoid you having to pass in a lot of extra arguments to your function.</p>
 <h3 id="loops-in-r-are-slow">Loops in R Are Slow</h3>
 <p>No, they are not! <em>If</em> you follow some golden rules:</p>
@@ -113,7 +113,7 @@ length
 <li>Allocate an object to hold the results and fill it in during the loop</li>
 </ol>
 <p>As an example, we’ll create a new version of <code>analyze</code> that will return the mean inflammation per day (column) of each file.</p>
-<pre class="sourceCode r"><code class="sourceCode r">analyze2 &lt;-<span class="st"> </span>function(filenames) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">analyze2 &lt;-<span class="st"> </span>function(filenames) {
   for (f in <span class="kw">seq_along</span>(filenames)) {
     fdata &lt;-<span class="st"> </span><span class="kw">read.csv</span>(filenames[f], <span class="dt">header =</span> <span class="ot">FALSE</span>)
     res &lt;-<span class="st"> </span><span class="kw">apply</span>(fdata, <span class="dv">2</span>, mean)
@@ -127,13 +127,13 @@ length
   <span class="kw">return</span>(out)
 }
 
-<span class="kw">system.time</span>(avg2 &lt;-<span class="st"> </span><span class="kw">analyze2</span>(filenames))</code></pre>
+<span class="kw">system.time</span>(avg2 &lt;-<span class="st"> </span><span class="kw">analyze2</span>(filenames))</code></pre></div>
 <pre class="output"><code>   user  system elapsed 
   0.059   0.000   0.060 
 </code></pre>
 <p>Note how we add a new column to <code>out</code> at each iteration? This is a cardinal sin of writing a <code>for</code> loop in R.</p>
 <p>Instead, we can create an empty matrix with the right dimensions (rows/columns) to hold the results. Then we loop over the files but this time we fill in the <code>f</code>th column of our results matrix <code>out</code>. This time there is no copying/growing for R to deal with.</p>
-<pre class="sourceCode r"><code class="sourceCode r">analyze3 &lt;-<span class="st"> </span>function(filenames) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">analyze3 &lt;-<span class="st"> </span>function(filenames) {
   out &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">ncol =</span> <span class="kw">length</span>(filenames), <span class="dt">nrow =</span> <span class="dv">40</span>) ## assuming 40 here from files 
   for (f in <span class="kw">seq_along</span>(filenames)) {
     fdata &lt;-<span class="st"> </span><span class="kw">read.csv</span>(filenames[f], <span class="dt">header =</span> <span class="ot">FALSE</span>)
@@ -142,7 +142,7 @@ length
   <span class="kw">return</span>(out)
 }
 
-<span class="kw">system.time</span>(avg3 &lt;-<span class="st"> </span><span class="kw">analyze3</span>(filenames))</code></pre>
+<span class="kw">system.time</span>(avg3 &lt;-<span class="st"> </span><span class="kw">analyze3</span>(filenames))</code></pre></div>
 <pre class="output"><code>   user  system elapsed 
   0.059   0.000   0.060 
 </code></pre>

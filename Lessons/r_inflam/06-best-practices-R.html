@@ -30,7 +30,7 @@
           <h2 class="subtitle">Best practices for using R and designing programs</h2>
           <section class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <p>Define some best practices when working with R</p>
@@ -39,14 +39,14 @@
 <ol style="list-style-type: decimal">
 <li>Start your code with a description of what it is:</li>
 </ol>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#This is code to replicate the analyses and figures from my 2014 Science paper.</span>
-<span class="co">#Code developed by Sarah Supp, Tracy Teal, and Jon Borelli</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#This is code to replicate the analyses and figures from my 2014 Science paper.</span>
+<span class="co">#Code developed by Sarah Supp, Tracy Teal, and Jon Borelli</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Run all of your import statments (<code>library</code>):</li>
 </ol>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(reshape)
-<span class="kw">library</span>(vegan)</code></pre>
+<span class="kw">library</span>(vegan)</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Set your working directory before <code>source()</code>ing a script, or start <code>R</code> inside your project folder:</li>
 </ol>
@@ -62,24 +62,24 @@
 <li><p>Use <code>#</code> or <code>#-</code> to set off sections of your code so you can easily scroll through it and find things.</p></li>
 <li><p>If you have only one or a few functions, put them at the top of your code, so they are among the first things run. If you have written many functions, put them all in their own .R file, and <code>source</code> them. Source will define all of these functions so that you can use them as you need them. For the reasons listed above, try to avoid using <code>setwd()</code> (or other functions that have side-effects in the user’s workspace) in scripts you <code>source</code>.</p></li>
 </ol>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;my_genius_fxns.R&quot;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;my_genius_fxns.R&quot;</span>)</code></pre></div>
 <ol start="6" style="list-style-type: decimal">
 <li><p>Use consistent style within your code.</p></li>
 <li><p>Keep your code modular. If a single function or loop gets too long, consider breaking it into smaller pieces.</p></li>
 <li><p>Don’t repeat yourself. Automate! If you are repeating the same piece of code on multiple objects or files, use a loop or a function to do the same thing. The more you repeat yourself, the more likely you are to make a mistake.</p></li>
 <li><p>Manage all of your source files for a project in the same directory. Then use relative paths as necessary. For example, use</p></li>
 </ol>
-<pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;/files/dataset-2013-01.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;/files/dataset-2013-01.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>rather than:</p>
-<pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;/Users/Karthik/Documents/sannic-project/files/dataset-2013-01.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;/Users/Karthik/Documents/sannic-project/files/dataset-2013-01.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <ol start="10" style="list-style-type: decimal">
 <li>R can run into memory issues. It is a common problem to run out of memory after running R scripts for a long time. In order to inspect your R session objects, you can list the objects, search current packages and remove objects that are currently not in use. A good practice when running long lines of computationally intensive sequential code is to remove temporary objects after they have served their purpose in.</li>
 </ol>
-<pre class="sourceCode r"><code class="sourceCode r">interim_object &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">rep</span>(<span class="dv">1</span>:<span class="dv">100</span>,<span class="dv">10</span>),<span class="kw">rep</span>(<span class="dv">101</span>:<span class="dv">200</span>,<span class="dv">10</span>),<span class="kw">rep</span>(<span class="dv">201</span>:<span class="dv">300</span>,<span class="dv">10</span>)) <span class="co"># Sample dataset of 1000 rows</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">interim_object &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">rep</span>(<span class="dv">1</span>:<span class="dv">100</span>,<span class="dv">10</span>),<span class="kw">rep</span>(<span class="dv">101</span>:<span class="dv">200</span>,<span class="dv">10</span>),<span class="kw">rep</span>(<span class="dv">201</span>:<span class="dv">300</span>,<span class="dv">10</span>)) <span class="co"># Sample dataset of 1000 rows</span>
 <span class="kw">object.size</span>(interim_object) <span class="co"># Reports the memory size allocated to the object</span>
 <span class="kw">rm</span>(interim_object) <span class="co"># Removes only the particular object</span>
 <span class="kw">ls</span>()  <span class="co"># Lists all the objects in your current workspace</span>
-<span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>()) <span class="co"># If you want to delete all the objects in the workspace and start with a new slate</span></code></pre>
+<span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>()) <span class="co"># If you want to delete all the objects in the workspace and start with a new slate</span></code></pre></div>
 <ol start="11" style="list-style-type: decimal">
 <li><p>Don’t save a session history (the default option in R, when it asks if you want an <code>RData</code> file). Instead, start in a clean environment so that older objects don’t contaminate your current environment. This can lead to unexpected results, especially if the code were to be run on someone else’s machine.</p></li>
 <li><p>Where possible keep track of <code>sessionInfo()</code> somewhere in your project folder. Session information is invaluable since it captures all of the packages used in the current project. If a newer version of a project changes the way a function behaves, you can always go back and reinstall the version that worked (Note: At least on CRAN all older versions of packages are permanently archived).</p></li>
@@ -88,7 +88,7 @@
 </ol>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pencil"></span>Discussion - Best practice</h2>
+<h2 id="discussion---best-practice"><span class="glyphicon glyphicon-pencil"></span>Discussion - Best practice</h2>
 </div>
 <div class="panel-body">
 <ol style="list-style-type: decimal">
