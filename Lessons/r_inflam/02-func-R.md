@@ -253,7 +253,7 @@ span <- function(a) {
   return(diff)
 }
 
-inflam <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
+inflam <- read.csv(file = "inflammation-01.csv", header = FALSE)
 # span of inflammation data
 span(inflam)
 ~~~
@@ -347,8 +347,8 @@ That looks right, so let's try center on our real data. We'll center the inflamm
 
 
 ~~~{.r}
-dat <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
-centered <- center(dat[, 4], 0)
+inflam <- read.csv(file = "inflammation-01.csv", header = FALSE)
+centered <- center(inflam[, 4], 0)
 head(centered)
 ~~~
 
@@ -364,7 +364,7 @@ It's hard to tell from the default output whether the result is correct, but the
 
 ~~~{.r}
 # original min
-min(dat[, 4])
+min(inflam[, 4])
 ~~~
 
 
@@ -378,7 +378,7 @@ min(dat[, 4])
 
 ~~~{.r}
 # original mean
-mean(dat[, 4])
+mean(inflam[, 4])
 ~~~
 
 
@@ -392,7 +392,7 @@ mean(dat[, 4])
 
 ~~~{.r}
 # original max
-max(dat[, 4])
+max(inflam[, 4])
 ~~~
 
 
@@ -451,7 +451,7 @@ We can even go further and check that the standard deviation hasn't changed:
 
 ~~~{.r}
 # original standard deviation
-sd(dat[, 4])
+sd(inflam[, 4])
 ~~~
 
 
@@ -481,7 +481,7 @@ Let's do this instead:
 
 ~~~{.r}
 # difference in standard deviations before and after
-sd(dat[, 4]) - sd(centered)
+sd(inflam[, 4]) - sd(centered)
 ~~~
 
 
@@ -496,7 +496,7 @@ R has a useful function for comparing two objects allowing for rounding errors, 
 
 
 ~~~{.r}
-all.equal(sd(dat[, 4]), sd(centered))
+all.equal(sd(inflam[, 4]), sd(centered))
 ~~~
 
 
@@ -542,7 +542,7 @@ center <- function(data, desired) {
 > ## Challenge - A more advanced function {.challenge}
 >
 >  + Write a function called `analyze` that takes a filename as a argument and displays the three graphs produced in the [previous lesson][01] (average, min and max inflammation over time).
->  `analyze("data/inflammation-01.csv")` should produce the graphs already shown, while `analyze("data/inflammation-02.csv")` should produce corresponding graphs for the second data set. Be sure to document your function with comments.
+>  `analyze("inflammation-01.csv")` should produce the graphs already shown, while `analyze("inflammation-02.csv")` should produce corresponding graphs for the second data set. Be sure to document your function with comments.
 >  + Write a function `rescale` that takes a vector as input and returns a corresponding vector of values scaled to lie in the range 0 to 1.
 >  (If $L$ and $H$ are the lowest and highest values in the original vector, then the replacement for a value $v$ should be $(v-L) / (H-L)$.)
 >  Be sure to document your function with comments.
@@ -554,20 +554,20 @@ center <- function(data, desired) {
 
 ### Defining Defaults
 
-We have passed arguments to functions in two ways: directly, as in `dim(dat)`, and by name, as in `read.csv(file = "data/inflammation-01.csv", header = FALSE)`.
+We have passed arguments to functions in two ways: directly, as in `dim(inflam)`, and by name, as in `read.csv(file = "inflammation-01.csv", header = FALSE)`.
 In fact, we can pass the arguments to `read.csv` without naming them:
 
 
 ~~~{.r}
-dat <- read.csv("data/inflammation-01.csv", FALSE)
+inflam <- read.csv("inflammation-01.csv", FALSE)
 ~~~
 
 However, the position of the arguments matters if they are not named.
 
 
 ~~~{.r}
-dat <- read.csv(header = FALSE, file = "data/inflammation-01.csv")
-dat <- read.csv(FALSE, "data/inflammation-01.csv")
+inflam <- read.csv(header = FALSE, file = "inflammation-01.csv")
+inflam <- read.csv(FALSE, "inflammation-01.csv")
 ~~~
 
 
@@ -753,7 +753,7 @@ Now we understand why the following gives an error:
 
 
 ~~~{.r}
-dat <- read.csv(FALSE, "data/inflammation-01.csv")
+inflam <- read.csv(FALSE, "inflammation-01.csv")
 ~~~
 
 
@@ -791,10 +791,10 @@ It fails because `FALSE` is assigned to `file` and the filename is assigned to t
 > 
 > 
 > ~~~{.r}
-> analyze("data/inflammation-01.csv")
-> analyze("data/inflammation-02.csv")
+> analyze("inflammation-01.csv")
+> analyze("inflammation-02.csv")
 > #...
-> analyze("data/inflammation-12.csv")
+> analyze("inflammation-12.csv")
 > ~~~
 >
 > but the chances of us typing all 12 filenames correctly aren't great, and we'll be even worse off if we get another hundred files.

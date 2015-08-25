@@ -154,7 +154,7 @@ final &lt;-<span class="st"> </span><span class="kw">fahr_to_celsius</span>(orig
   <span class="kw">return</span>(diff)
 }
 
-inflam &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/inflammation-01.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>)
+inflam &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;inflammation-01.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>)
 <span class="co"># span of inflammation data</span>
 <span class="kw">span</span>(inflam)</code></pre></div>
 <pre class="output"><code>[1] 20
@@ -195,22 +195,22 @@ z</code></pre></div>
 <pre class="output"><code>[1] 3 3 3 3
 </code></pre>
 <p>That looks right, so let’s try center on our real data. We’ll center the inflammation data from day 4 around 0:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/inflammation-01.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>)
-centered &lt;-<span class="st"> </span><span class="kw">center</span>(dat[, <span class="dv">4</span>], <span class="dv">0</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inflam &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;inflammation-01.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>)
+centered &lt;-<span class="st"> </span><span class="kw">center</span>(inflam[, <span class="dv">4</span>], <span class="dv">0</span>)
 <span class="kw">head</span>(centered)</code></pre></div>
 <pre class="output"><code>[1]  1.25 -0.75  1.25 -1.75  1.25  0.25
 </code></pre>
 <p>It’s hard to tell from the default output whether the result is correct, but there are a few simple tests that will reassure us:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># original min</span>
-<span class="kw">min</span>(dat[, <span class="dv">4</span>])</code></pre></div>
+<span class="kw">min</span>(inflam[, <span class="dv">4</span>])</code></pre></div>
 <pre class="output"><code>[1] 0
 </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># original mean</span>
-<span class="kw">mean</span>(dat[, <span class="dv">4</span>])</code></pre></div>
+<span class="kw">mean</span>(inflam[, <span class="dv">4</span>])</code></pre></div>
 <pre class="output"><code>[1] 1.75
 </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># original max</span>
-<span class="kw">max</span>(dat[, <span class="dv">4</span>])</code></pre></div>
+<span class="kw">max</span>(inflam[, <span class="dv">4</span>])</code></pre></div>
 <pre class="output"><code>[1] 3
 </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># centered min</span>
@@ -227,7 +227,7 @@ centered &lt;-<span class="st"> </span><span class="kw">center</span>(dat[, <spa
 </code></pre>
 <p>That seems almost right: the original mean was about 1.75, so the lower bound from zero is now about -1.75. The mean of the centered data is 0. We can even go further and check that the standard deviation hasn’t changed:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># original standard deviation</span>
-<span class="kw">sd</span>(dat[, <span class="dv">4</span>])</code></pre></div>
+<span class="kw">sd</span>(inflam[, <span class="dv">4</span>])</code></pre></div>
 <pre class="output"><code>[1] 1.067628
 </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># centerted standard deviation</span>
@@ -236,11 +236,11 @@ centered &lt;-<span class="st"> </span><span class="kw">center</span>(dat[, <spa
 </code></pre>
 <p>Those values look the same, but we probably wouldn’t notice if they were different in the sixth decimal place. Let’s do this instead:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># difference in standard deviations before and after</span>
-<span class="kw">sd</span>(dat[, <span class="dv">4</span>]) -<span class="st"> </span><span class="kw">sd</span>(centered)</code></pre></div>
+<span class="kw">sd</span>(inflam[, <span class="dv">4</span>]) -<span class="st"> </span><span class="kw">sd</span>(centered)</code></pre></div>
 <pre class="output"><code>[1] 0
 </code></pre>
 <p>Sometimes, a very small difference can be detected due to rounding at very low decimal places. R has a useful function for comparing two objects allowing for rounding errors, <code>all.equal</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(<span class="kw">sd</span>(dat[, <span class="dv">4</span>]), <span class="kw">sd</span>(centered))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(<span class="kw">sd</span>(inflam[, <span class="dv">4</span>]), <span class="kw">sd</span>(centered))</code></pre></div>
 <pre class="output"><code>[1] TRUE
 </code></pre>
 <p>It’s still possible that our function is wrong, but it seems unlikely enough that we should probably get back to doing our analysis. We have one more task first, though: we should write some <a href="reference.html#documentation">documentation</a> for our function to remind ourselves later what it’s for and how to use it.</p>
@@ -266,18 +266,18 @@ centered &lt;-<span class="st"> </span><span class="kw">center</span>(dat[, <spa
 </div>
 <div class="panel-body">
 <ul>
-<li>Write a function called <code>analyze</code> that takes a filename as a argument and displays the three graphs produced in the <a href="01-starting-with-data.html">previous lesson</a> (average, min and max inflammation over time). <code>analyze(&quot;data/inflammation-01.csv&quot;)</code> should produce the graphs already shown, while <code>analyze(&quot;data/inflammation-02.csv&quot;)</code> should produce corresponding graphs for the second data set. Be sure to document your function with comments.</li>
+<li>Write a function called <code>analyze</code> that takes a filename as a argument and displays the three graphs produced in the <a href="01-starting-with-data.html">previous lesson</a> (average, min and max inflammation over time). <code>analyze(&quot;inflammation-01.csv&quot;)</code> should produce the graphs already shown, while <code>analyze(&quot;inflammation-02.csv&quot;)</code> should produce corresponding graphs for the second data set. Be sure to document your function with comments.</li>
 <li>Write a function <code>rescale</code> that takes a vector as input and returns a corresponding vector of values scaled to lie in the range 0 to 1. (If <span class="math inline"><em>L</em></span> and <span class="math inline"><em>H</em></span> are the lowest and highest values in the original vector, then the replacement for a value <span class="math inline"><em>v</em></span> should be <span class="math inline">(<em>v</em> − <em>L</em>)/(<em>H</em> − <em>L</em>)</span>.) Be sure to document your function with comments.</li>
 <li>Test that your <code>rescale</code> function is working properly using <code>min</code>, <code>max</code>, and <code>plot</code>.</li>
 </ul>
 </div>
 </section>
 <h3 id="defining-defaults">Defining Defaults</h3>
-<p>We have passed arguments to functions in two ways: directly, as in <code>dim(dat)</code>, and by name, as in <code>read.csv(file = &quot;data/inflammation-01.csv&quot;, header = FALSE)</code>. In fact, we can pass the arguments to <code>read.csv</code> without naming them:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/inflammation-01.csv&quot;</span>, <span class="ot">FALSE</span>)</code></pre></div>
+<p>We have passed arguments to functions in two ways: directly, as in <code>dim(inflam)</code>, and by name, as in <code>read.csv(file = &quot;inflammation-01.csv&quot;, header = FALSE)</code>. In fact, we can pass the arguments to <code>read.csv</code> without naming them:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inflam &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;inflammation-01.csv&quot;</span>, <span class="ot">FALSE</span>)</code></pre></div>
 <p>However, the position of the arguments matters if they are not named.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">header =</span> <span class="ot">FALSE</span>, <span class="dt">file =</span> <span class="st">&quot;data/inflammation-01.csv&quot;</span>)
-dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="ot">FALSE</span>, <span class="st">&quot;data/inflammation-01.csv&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inflam &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">header =</span> <span class="ot">FALSE</span>, <span class="dt">file =</span> <span class="st">&quot;inflammation-01.csv&quot;</span>)
+inflam &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="ot">FALSE</span>, <span class="st">&quot;inflammation-01.csv&quot;</span>)</code></pre></div>
 <pre class="output"><code>Error in read.table(file = file, header = header, sep = sep, quote = quote, : &#39;file&#39; must be a character string or connection
 </code></pre>
 <p>To understand what’s going on, and make our own functions easier to use, let’s re-define our <code>center</code> function like this:</p>
@@ -356,7 +356,7 @@ more_data</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read.csv</span>(file, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">quote =</span> <span class="st">&quot;</span><span class="ch">\&quot;</span><span class="st">&quot;</span>,
          <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>, <span class="dt">fill =</span> <span class="ot">TRUE</span>, <span class="dt">comment.char =</span> <span class="st">&quot;&quot;</span>, ...)</code></pre></div>
 <p>This tells us that <code>read.csv()</code> has one argument, <code>file</code>, that doesn’t have a default value, and six others that do. Now we understand why the following gives an error:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="ot">FALSE</span>, <span class="st">&quot;data/inflammation-01.csv&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inflam &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="ot">FALSE</span>, <span class="st">&quot;inflammation-01.csv&quot;</span>)</code></pre></div>
 <pre class="output"><code>Error in read.table(file = file, header = header, sep = sep, quote = quote, : &#39;file&#39; must be a character string or connection
 </code></pre>
 <p>It fails because <code>FALSE</code> is assigned to <code>file</code> and the filename is assigned to the argument <code>header</code>.</p>
@@ -394,10 +394,10 @@ more_data</code></pre></div>
 </div>
 <div class="panel-body">
 <p>We now have a function called analyze to visualize a single data set. We could use it to explore all 12 of our current data sets like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">analyze</span>(<span class="st">&quot;data/inflammation-01.csv&quot;</span>)
-<span class="kw">analyze</span>(<span class="st">&quot;data/inflammation-02.csv&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">analyze</span>(<span class="st">&quot;inflammation-01.csv&quot;</span>)
+<span class="kw">analyze</span>(<span class="st">&quot;inflammation-02.csv&quot;</span>)
 <span class="co">#...</span>
-<span class="kw">analyze</span>(<span class="st">&quot;data/inflammation-12.csv&quot;</span>)</code></pre></div>
+<span class="kw">analyze</span>(<span class="st">&quot;inflammation-12.csv&quot;</span>)</code></pre></div>
 <p>but the chances of us typing all 12 filenames correctly aren’t great, and we’ll be even worse off if we get another hundred files. What we need is a way to tell R to do something once for each file, and that will be the subject of the next lesson.</p>
 </div>
 </aside>

@@ -1,9 +1,4 @@
----
-layout: page
-title: Programming with R
-subtitle: Addressing data
-minutes: 20
----
+# Programming with R
 
 
 
@@ -23,7 +18,7 @@ Lets start by loading some sample data:
 
 
 ~~~{.r}
-dat<-read.csv(file='data/sample.csv',header=TRUE, stringsAsFactors=FALSE)
+aneurism<-read.csv(file='data/sample.csv',header=TRUE, stringsAsFactors=FALSE)
 ~~~
 
 > ## Tip {.callout} 
@@ -35,7 +30,7 @@ Lets take a look at this data.
 
 
 ~~~{.r}
-class(dat)
+class(aneurism)
 ~~~
 
 
@@ -45,11 +40,11 @@ class(dat)
 
 ~~~
 
-R has loaded the contents of the .csv file into a variable called `dat` which is a `data frame`.
+R has loaded the contents of the .csv file into a variable called `aneurism` which is a `data frame`.
 
 
 ~~~{.r}
-dim(dat)
+dim(aneurism)
 ~~~
 
 
@@ -63,7 +58,7 @@ The data has 100 rows and 9 columns.
 
 
 ~~~{.r}
-head(dat)
+head(aneurism)
 ~~~
 
 
@@ -90,15 +85,15 @@ The data is the results of an (not real) experiment, looking at the number of an
 
 ### Addressing by Index
 
-Data can be accessed by index. We have already seen how square brackets `[` can be used to subset (slice) data. The generic format is `dat[row_numbers,column_numbers]`.
+Data can be accessed by index. We have already seen how square brackets `[` can be used to subset (slice) data. The generic format is `aneurism[row_numbers,column_numbers]`.
 
 > ## Challenge - Selecting values 1 {.challenge}
 >
-> What will be returned by `dat[1,1]`?
+> What will be returned by `aneurism[1,1]`?
 
 
 ~~~{.r}
-dat[1,1]
+aneurism[1,1]
 ~~~
 
 
@@ -112,7 +107,7 @@ If we leave out a dimension R will interpret this as a request for all values in
 
 > ## Challenge - Selecting values 2 {.challenge}
 >
-> What will be returned by `dat[,2]`?
+> What will be returned by `aneurism[,2]`?
 
 The colon `:` can be used to create a sequence of integers.
 
@@ -139,7 +134,7 @@ Finally we can use the `c()` (combine) function to address non-sequential rows a
 
 
 ~~~{.r}
-dat[c(1,5,7,9),1:5]
+aneurism[c(1,5,7,9),1:5]
 ~~~
 
 
@@ -164,7 +159,7 @@ Columns in an R data frame are named.
 
 
 ~~~{.r}
-names(dat)
+names(aneurism)
 ~~~
 
 
@@ -184,7 +179,7 @@ We usually use the `$` operator to address a column by name
 
 
 ~~~{.r}
-dat$Gender
+aneurism$Gender
 ~~~
 
 
@@ -202,7 +197,7 @@ dat$Gender
 Named addressing can also be used in square brackets.
 
 ~~~{.r}
-head(dat[,c('Age','Gender')])
+head(aneurism[,c('Age','Gender')])
 ~~~
 
 
@@ -273,8 +268,8 @@ We can use logical vectors to select data from a data frame.
 
 
 ~~~{.r}
-index <- dat$Group == 'Control'
-dat[index,]$BloodPressure
+index <- aneurism$Group == 'Control'
+aneurism[index,]$BloodPressure
 ~~~
 
 
@@ -289,10 +284,10 @@ Often this operation is written as one line of code:
 
 
 ~~~{.r}
-plot(dat[dat$Group=='Control',]$BloodPressure)
+plot(aneurism[aneurism$Group=='Control',]$BloodPressure)
 ~~~
 
-<img src="fig/logical_vectors_indexing2-1.png" title="plot of chunk logical_vectors_indexing2" alt="plot of chunk logical_vectors_indexing2" style="display: block; margin: auto;" />
+<img src="fig/logical_vectors_indexing2-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 > ## Challenge - Using logical indexes {.challenge}
 > 1. Create a scatterplot showing BloodPressure for subjects not in the control group.
