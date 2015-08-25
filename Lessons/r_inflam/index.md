@@ -33,8 +33,8 @@ and to use that language *well*.
 1.  [Getting Started](01-starting-with-data.html)
 2.  [Loading data](02-loading-and-addressing.html)
 3.  [Data Structures](03-data-structures.html)
-4.  [Making Functions](02-func-R.html)
-5.  [Making Loops](03-loops-R.html)
+4.  [Making Functions](04-func-R.html)
+5.  [Making Loops](05-loops-R.html)
 6.  [Best practices for using R and designing programs](06-best-practices-R.html)
 7.  [Dynamic reports with knitr](07-knitr-R.html)
 
@@ -47,7 +47,7 @@ and to use that language *well*.
 
 ## Supplemental lessons
 
-*   [Condtionals](04-cond.html)
-*   [Loops in Depth](03-supp-loops-in-depth.html)
-*   [Getting input from Command line](05-cmdline.html)
-*   [Writing packages](08-making-packages-R.html)
+*   [Condtionals](01-supp-cond.html)
+*   [Loops in Depth](02-supp-loops-in-depth.html)
+*   [Getting input from Command line](03-supp-cmdline.html)
+*   [Writing packages](04-supp-making-packages-R.html)
