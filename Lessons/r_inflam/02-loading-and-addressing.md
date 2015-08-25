@@ -1,12 +1,4 @@
----
-layout: page
-title: Programming with R
-subtitle: Loading Data
-minutes: 30
-output: 
-  html_document: 
-    keep_md: yes
----
+# Programming with R
 
 > ## Learning Objectives {.objectives}
 > * Read tabular data from a file into a program.

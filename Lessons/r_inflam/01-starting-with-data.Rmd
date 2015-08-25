@@ -3,10 +3,14 @@ layout: page
 title: Programming with R
 subtitle: Getting Started
 output: 
-  html_document: 
+  html_document:
     keep_md: yes
 ---
 
+```{r, include = FALSE}
+source("tools/chunk-options.R")
+opts_chunk$set(fig.path = "img/software-carpentry-banner.png")
+```
 
 
 > ## Learning Objectives {.objectives}

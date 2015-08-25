@@ -1,4 +1,12 @@
-# Programming with R
+---
+layout: page
+title: Programming with R
+subtitle: Getting Started
+output: 
+  html_document:
+    keep_md: yes
+---
+
 
 
 
@@ -75,9 +83,9 @@ and need to analyze the first dozen data sets.
 To start, we need to make a place to store our datafiles. Normally, RStudio defaults to saving and looking for files in `My Documents`, but you probably don't want to keep all of your R data, scripts and output in a single folder. You could just add full or relative paths to all of your R commands get or save data, but then whatever R program you write will not be portable or reproducible. Consider if this was a line in your script (here, read.csv tells R to go into your computer and get the data from the .csv file you specified):
 
 
-```r
+~~~{.r}
 read.csv("Z:/RadishData/21MarkersData/SpainIsrael2013Pops/MarkerData2014_forR.csv")
-```
+~~~
 
 This command will work perfectly on your computer, but what if you send your script and your datafile to a collaborator? Unless they store the datafile you gave them at `Z:/RadishData/21MarkersData/SpainIsrael2013Pops/MarkerData2014_forR.csv`, the script won't work. One easy way around this is to do your work in `Projects`. This is essentially just an R specific folder that holds all of the data, scripts and output for a specific project. You can give an R project folder to anyone who runs R, and they will be able to reproduce your results without having to resort to editing paths and filenames.
 
@@ -93,24 +101,25 @@ The data sets are stored in [comma-separated values](reference.html#comma-separa
 The first few rows of each file should look something like this:
 
 
-```
-## 0,0,1,3,1,2,4,7,8,3,3,3,10,5,7,4,7,7,12,18,6,13,11,11,7,7,4,6,8,8,4,4,5,7,3,4,2,3,0,0
-## 0,1,2,1,2,1,3,2,2,6,10,11,5,9,4,4,7,16,8,6,18,4,12,5,12,7,11,5,11,3,3,5,4,4,5,5,1,1,0,1
-## 0,1,1,3,3,2,6,2,5,9,5,7,4,5,4,15,5,11,9,10,19,14,12,17,7,12,11,7,4,2,10,5,4,2,2,3,2,2,1,1
-## 0,0,2,0,4,2,2,1,6,7,10,7,9,13,8,8,15,10,10,7,17,4,4,7,6,15,6,4,9,11,3,5,6,3,3,4,2,3,2,1
-## 0,1,1,3,3,1,3,5,2,4,4,7,6,5,3,10,8,10,6,17,9,14,9,7,13,9,12,6,7,7,9,6,3,2,2,4,2,0,1,1
-```
+~~~{.output}
+0,0,1,3,1,2,4,7,8,3,3,3,10,5,7,4,7,7,12,18,6,13,11,11,7,7,4,6,8,8,4,4,5,7,3,4,2,3,0,0
+0,1,2,1,2,1,3,2,2,6,10,11,5,9,4,4,7,16,8,6,18,4,12,5,12,7,11,5,11,3,3,5,4,4,5,5,1,1,0,1
+0,1,1,3,3,2,6,2,5,9,5,7,4,5,4,15,5,11,9,10,19,14,12,17,7,12,11,7,4,2,10,5,4,2,2,3,2,2,1,1
+0,0,2,0,4,2,2,1,6,7,10,7,9,13,8,8,15,10,10,7,17,4,4,7,6,15,6,4,9,11,3,5,6,3,3,4,2,3,2,1
+0,1,1,3,3,1,3,5,2,4,4,7,6,5,3,10,8,10,6,17,9,14,9,7,13,9,12,6,7,7,9,6,3,2,2,4,2,0,1,1
+
+~~~
 
 
 We could go to this page and download each one individually, then move each one from the `Downloads` folder to `SWC_R_exercise`, but now we know enough shell scripting to automate the process (in the SHELL):
 
 
-```bash
+~~~{.r}
 cd ~/Desktop/
 curl -O https://raw.githubusercontent.com/UMSWC/2015-08-26-umswc/gh-pages/Lessons/r_inflam/data/SWC_R.zip
 unzip SWC_R.zip -d SWC_R
 mv SWC_R/* SWC_R_exercise/
-```
+~~~
 We `cd` to the `Desktop` directory, so that the zipfile will be downloaded there
 `-O` tells curl to save the zipfile as the same filename it has on the web
 Because we downloaded a zip file, we need to unzip it
@@ -128,29 +137,33 @@ We can check that everything downloaded correctly by looking in the `SWC_R_exerc
 
 
 
-```bash
+~~~{.r}
 cd ~/Desktop/SWC_R_exercise/
 ls -lh
-```
+~~~
 
-```
-## total 248
-## -rw-r--r--  1 Amanda  staff   2.0K Jul 29 14:00 car-speeds-cleaned.csv
-## -rw-r--r--  1 Amanda  staff   1.6K Jul 29 14:00 car-speeds.csv
-## -rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-01.csv
-## -rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-02.csv
-## -rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-03.csv
-## -rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-04.csv
-## -rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-05.csv
-## -rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-06.csv
-## -rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-07.csv
-## -rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-08.csv
-## -rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-09.csv
-## -rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-10.csv
-## -rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-11.csv
-## -rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-12.csv
-## -rw-r--r--  1 Amanda  staff   4.9K Jul 29 14:00 sample.csv
-## -rw-r--r--  1 Amanda  staff    12B Jul 29 14:00 small-01.csv
-## -rw-r--r--  1 Amanda  staff    15B Jul 29 14:00 small-02.csv
-## -rw-r--r--  1 Amanda  staff    12B Jul 29 14:00 small-03.csv
-```
+
+
+
+~~~{.output}
+total 248
+-rw-r--r--  1 Amanda  staff   2.0K Jul 29 14:00 car-speeds-cleaned.csv
+-rw-r--r--  1 Amanda  staff   1.6K Jul 29 14:00 car-speeds.csv
+-rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-01.csv
+-rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-02.csv
+-rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-03.csv
+-rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-04.csv
+-rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-05.csv
+-rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-06.csv
+-rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-07.csv
+-rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-08.csv
+-rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-09.csv
+-rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-10.csv
+-rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-11.csv
+-rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-12.csv
+-rw-r--r--  1 Amanda  staff   4.9K Jul 29 14:00 sample.csv
+-rw-r--r--  1 Amanda  staff    12B Jul 29 14:00 small-01.csv
+-rw-r--r--  1 Amanda  staff    15B Jul 29 14:00 small-02.csv
+-rw-r--r--  1 Amanda  staff    12B Jul 29 14:00 small-03.csv
+
+~~~

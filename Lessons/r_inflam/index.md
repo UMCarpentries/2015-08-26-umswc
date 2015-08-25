@@ -33,8 +33,8 @@ and to use that language *well*.
 1.  [Getting Started](01-starting-with-data.html)
 2.  [Loading data](02-loading-and-addressing.html)
 3.  [Data Structures](03-data-structures.html)
-4.  [Making Functions] (02-func-R.html)
-5.  [Making Loops] (03-loops-R.html)
+4.  [Making Functions](02-func-R.html)
+5.  [Making Loops](03-loops-R.html)
 6.  [Best practices for using R and designing programs](06-best-practices-R.html)
 7.  [Dynamic reports with knitr](07-knitr-R.html)
 
