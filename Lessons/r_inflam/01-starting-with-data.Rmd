@@ -95,7 +95,7 @@ This command will work perfectly on your computer, but what if you send your scr
 
 Start RStudio, click on `File -> New Project`. Choose `New Directory`, then `Empty Project`. RStudio will ask you for a Directory Name and where it should create the new project. Lets name our new directory "SWC_R_exercise" and save it to our Desktop by clicking `Browse` and then selecting the `Desktop`, finally, click `Create Project`. Then close RStudio.
 
-On you Desktop, you should now have a new folder called `SWC_R_exercise`, that contains two files: `.Rhistory` and `SWC_R_exercise.R`. 
+On you Desktop, you should now have a new folder called `SWC_R_exercise`, that contains two files: `.Rhistory` and `SWC_R_exercise.R`. Before we get our data, lets make a folder for it called `Data` inside the `SWC_R_exercise` folder.
 
 Now, lets get the data files and store them in our project folder. Our datasets are at <a href="https://github.com/UMSWC/2015-08-26-umswc/tree/gh-pages/Lessons/r_inflam/data"> datasets</a>.
 
@@ -115,7 +115,7 @@ We could go to this page and download each one individually, then move each one 
 cd ~/Desktop/
 curl -O https://raw.githubusercontent.com/UMSWC/2015-08-26-umswc/gh-pages/Lessons/r_inflam/data/SWC_R.zip
 unzip SWC_R.zip -d SWC_R
-mv SWC_R/* SWC_R_exercise/
+mv SWC_R/* SWC_R_exercise/Data/
 ```
 We `cd` to the `Desktop` directory, so that the zipfile will be downloaded there
 `-O` tells curl to save the zipfile as the same filename it has on the web
@@ -134,6 +134,6 @@ We can check that everything downloaded correctly by looking in the `SWC_R_exerc
 
 
 ```{bash}
-cd ~/Desktop/SWC_R_exercise/
+cd ~/Desktop/SWC_R_exercise/Data/
 ls -lh
 ```

@@ -47,12 +47,12 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">analyze &lt;-<span class="st"> </span>function(filename) {
   <span class="co"># Plots the average, min, and max inflammation over time.</span>
   <span class="co"># Input is character string of a csv file.</span>
-  dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> filename, <span class="dt">header =</span> <span class="ot">FALSE</span>)
-  avg_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, mean)
+  inflam &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> filename, <span class="dt">header =</span> <span class="ot">FALSE</span>)
+  avg_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(inflam, <span class="dv">2</span>, mean)
   <span class="kw">plot</span>(avg_day_inflammation)
-  max_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, max)
+  max_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(inflam, <span class="dv">2</span>, max)
   <span class="kw">plot</span>(max_day_inflammation)
-  min_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, min)
+  min_day_inflammation &lt;-<span class="st"> </span><span class="kw">apply</span>(inflam, <span class="dv">2</span>, min)
   <span class="kw">plot</span>(min_day_inflammation)
 }
 
@@ -215,10 +215,14 @@ letter</code></pre></div>
 [17] &quot;small-02.csv&quot;           &quot;small-03.csv&quot;          
 </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;inflammation&quot;</span>)</code></pre></div>
-<pre class="output"><code> [1] &quot;inflammation-01.csv&quot; &quot;inflammation-02.csv&quot; &quot;inflammation-03.csv&quot;
- [4] &quot;inflammation-04.csv&quot; &quot;inflammation-05.csv&quot; &quot;inflammation-06.csv&quot;
- [7] &quot;inflammation-07.csv&quot; &quot;inflammation-08.csv&quot; &quot;inflammation-09.csv&quot;
-[10] &quot;inflammation-10.csv&quot; &quot;inflammation-11.csv&quot; &quot;inflammation-12.csv&quot;
+<pre class="output"><code> [1] &quot;inflammation-01.csv&quot; &quot;inflammation-01.pdf&quot; &quot;inflammation-02.csv&quot;
+ [4] &quot;inflammation-02.pdf&quot; &quot;inflammation-03.csv&quot; &quot;inflammation-03.pdf&quot;
+ [7] &quot;inflammation-04.csv&quot; &quot;inflammation-04.pdf&quot; &quot;inflammation-05.csv&quot;
+[10] &quot;inflammation-05.pdf&quot; &quot;inflammation-06.csv&quot; &quot;inflammation-06.pdf&quot;
+[13] &quot;inflammation-07.csv&quot; &quot;inflammation-07.pdf&quot; &quot;inflammation-08.csv&quot;
+[16] &quot;inflammation-08.pdf&quot; &quot;inflammation-09.csv&quot; &quot;inflammation-09.pdf&quot;
+[19] &quot;inflammation-10.csv&quot; &quot;inflammation-10.pdf&quot; &quot;inflammation-11.csv&quot;
+[22] &quot;inflammation-11.pdf&quot; &quot;inflammation-12.csv&quot; &quot;inflammation-12.pdf&quot;
 </code></pre>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
@@ -242,12 +246,18 @@ letter</code></pre></div>
 [17] &quot;data/small-02.csv&quot;           &quot;data/small-03.csv&quot;          
 </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;inflammation&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre class="output"><code> [1] &quot;data/inflammation-01.csv&quot; &quot;data/inflammation-02.csv&quot;
- [3] &quot;data/inflammation-03.csv&quot; &quot;data/inflammation-04.csv&quot;
- [5] &quot;data/inflammation-05.csv&quot; &quot;data/inflammation-06.csv&quot;
- [7] &quot;data/inflammation-07.csv&quot; &quot;data/inflammation-08.csv&quot;
- [9] &quot;data/inflammation-09.csv&quot; &quot;data/inflammation-10.csv&quot;
-[11] &quot;data/inflammation-11.csv&quot; &quot;data/inflammation-12.csv&quot;
+<pre class="output"><code> [1] &quot;data/inflammation-01.csv&quot; &quot;data/inflammation-01.pdf&quot;
+ [3] &quot;data/inflammation-02.csv&quot; &quot;data/inflammation-02.pdf&quot;
+ [5] &quot;data/inflammation-03.csv&quot; &quot;data/inflammation-03.pdf&quot;
+ [7] &quot;data/inflammation-04.csv&quot; &quot;data/inflammation-04.pdf&quot;
+ [9] &quot;data/inflammation-05.csv&quot; &quot;data/inflammation-05.pdf&quot;
+[11] &quot;data/inflammation-06.csv&quot; &quot;data/inflammation-06.pdf&quot;
+[13] &quot;data/inflammation-07.csv&quot; &quot;data/inflammation-07.pdf&quot;
+[15] &quot;data/inflammation-08.csv&quot; &quot;data/inflammation-08.pdf&quot;
+[17] &quot;data/inflammation-09.csv&quot; &quot;data/inflammation-09.pdf&quot;
+[19] &quot;data/inflammation-10.csv&quot; &quot;data/inflammation-10.pdf&quot;
+[21] &quot;data/inflammation-11.csv&quot; &quot;data/inflammation-11.pdf&quot;
+[23] &quot;data/inflammation-12.csv&quot; &quot;data/inflammation-12.pdf&quot;
 </code></pre>
 <p>Let’s test out running our <code>analyze</code> function by using it on the first three files in the vector returned by <code>list.files</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filenames &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;inflammation&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)
@@ -258,13 +268,23 @@ for (f in filenames) {
 }</code></pre></div>
 <pre class="output"><code>[1] &quot;data/inflammation-01.csv&quot;
 </code></pre>
-<p><img src="fig/03-loops-R-loop-analyze-1.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /><img src="fig/03-loops-R-loop-analyze-2.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /><img src="fig/03-loops-R-loop-analyze-3.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /></p>
-<pre class="output"><code>[1] &quot;data/inflammation-02.csv&quot;
+<p><img src="fig/03-loops-R-loop-analyze-1.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /><img src="fig/03-loops-R-loop-analyze-2.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /></p>
+<pre class="output"><code>[1] &quot;data/inflammation-01.pdf&quot;
 </code></pre>
-<p><img src="fig/03-loops-R-loop-analyze-4.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /><img src="fig/03-loops-R-loop-analyze-5.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /><img src="fig/03-loops-R-loop-analyze-6.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /></p>
-<pre class="output"><code>[1] &quot;data/inflammation-03.csv&quot;
+<pre class="output"><code>Warning in scan(file = file, what = what, sep = sep, quote = quote, dec =
+dec, : embedded nul(s) found in input
 </code></pre>
-<p><img src="fig/03-loops-R-loop-analyze-7.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /><img src="fig/03-loops-R-loop-analyze-8.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /><img src="fig/03-loops-R-loop-analyze-9.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /></p>
+<pre class="output"><code>Warning in mean.default(newX[, i], ...): argument is not numeric or
+logical: returning NA
+</code></pre>
+<pre class="output"><code>Warning in min(x): no non-missing arguments to min; returning Inf
+</code></pre>
+<pre class="output"><code>Warning in max(x): no non-missing arguments to max; returning -Inf
+</code></pre>
+<p><img src="fig/03-loops-R-loop-analyze-3.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /></p>
+<pre class="output"><code>Error in plot.window(...): need finite &#39;ylim&#39; values
+</code></pre>
+<p><img src="fig/03-loops-R-loop-analyze-4.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" style="display: block; margin: auto;" /></p>
 <p>Sure enough, the maxima of these data sets show exactly the same ramp as the first, and their minima show the same staircase structure.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">

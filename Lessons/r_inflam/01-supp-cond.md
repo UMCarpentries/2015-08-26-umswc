@@ -26,12 +26,12 @@ So far, we have built a function `analyze` to plot summary statistics of the inf
 analyze <- function(filename) {
   # Plots the average, min, and max inflammation over time.
   # Input is character string of a csv file.
-  dat <- read.csv(file = filename, header = FALSE)
-  avg_day_inflammation <- apply(dat, 2, mean)
+  inflam <- read.csv(file = filename, header = FALSE)
+  avg_day_inflammation <- apply(inflam, 2, mean)
   plot(avg_day_inflammation)
-  max_day_inflammation <- apply(dat, 2, max)
+  max_day_inflammation <- apply(inflam, 2, max)
   plot(max_day_inflammation)
-  min_day_inflammation <- apply(dat, 2, min)
+  min_day_inflammation <- apply(inflam, 2, min)
   plot(min_day_inflammation)
 }
 ~~~
@@ -257,14 +257,14 @@ In this case, "either" means "either or both", not "either one or the other but 
 >
 >
 >~~~{.r}
-> dat <- read.csv("data/inflammation-01.csv", header = FALSE)
-> plot_dist(dat[, 10], threshold = 10)     # day (column) 10
+> inflam <- read.csv("data/inflammation-01.csv", header = FALSE)
+> plot_dist(inflam[, 10], threshold = 10)     # day (column) 10
 >~~~
 >
 ><img src="fig/04-cond-using-conditions-01-1.png" title="plot of chunk using-conditions-01" alt="plot of chunk using-conditions-01" style="display: block; margin: auto;" />
 >
 >~~~{.r}
-> plot_dist(dat[1:5, 10], threshold = 10)  # samples (rows) 1-5 on day (column) 10
+> plot_dist(inflam[1:5, 10], threshold = 10)  # samples (rows) 1-5 on day (column) 10
 >~~~
 >
 ><img src="fig/04-cond-using-conditions-01-2.png" title="plot of chunk using-conditions-01" alt="plot of chunk using-conditions-01" style="display: block; margin: auto;" />
@@ -273,20 +273,20 @@ In this case, "either" means "either or both", not "either one or the other but 
 >
 > 
 > ~~~{.r}
-> dat <- read.csv("data/inflammation-01.csv", header = FALSE)
-> plot_dist(dat[, 10], threshold = 10, use_boxplot = TRUE)   # day (column) 10 - create boxplot
+> inflam <- read.csv("data/inflammation-01.csv", header = FALSE)
+> plot_dist(inflam[, 10], threshold = 10, use_boxplot = TRUE)   # day (column) 10 - create boxplot
 > ~~~
 > 
 > <img src="fig/04-cond-conditional-challenge-hist-1.png" title="plot of chunk conditional-challenge-hist" alt="plot of chunk conditional-challenge-hist" style="display: block; margin: auto;" />
 > 
 > ~~~{.r}
-> plot_dist(dat[, 10], threshold = 10, use_boxplot = FALSE)  # day (column) 10 - create histogram
+> plot_dist(inflam[, 10], threshold = 10, use_boxplot = FALSE)  # day (column) 10 - create histogram
 > ~~~
 > 
 > <img src="fig/04-cond-conditional-challenge-hist-2.png" title="plot of chunk conditional-challenge-hist" alt="plot of chunk conditional-challenge-hist" style="display: block; margin: auto;" />
 > 
 > ~~~{.r}
-> plot_dist(dat[1:5, 10], threshold = 10)                    # samples (rows) 1-5 on day (column) 10
+> plot_dist(inflam[1:5, 10], threshold = 10)                    # samples (rows) 1-5 on day (column) 10
 > ~~~
 > 
 > <img src="fig/04-cond-conditional-challenge-hist-3.png" title="plot of chunk conditional-challenge-hist" alt="plot of chunk conditional-challenge-hist" style="display: block; margin: auto;" />
@@ -305,12 +305,12 @@ analyze <- function(filename, output = NULL) {
   if (!is.null(output)) {
     pdf(output)
   }
-  dat <- read.csv(file = filename, header = FALSE)
-  avg_day_inflammation <- apply(dat, 2, mean)
+  inflam <- read.csv(file = filename, header = FALSE)
+  avg_day_inflammation <- apply(inflam, 2, mean)
   plot(avg_day_inflammation)
-  max_day_inflammation <- apply(dat, 2, max)
+  max_day_inflammation <- apply(inflam, 2, max)
   plot(max_day_inflammation)
-  min_day_inflammation <- apply(dat, 2, min)
+  min_day_inflammation <- apply(inflam, 2, min)
   plot(min_day_inflammation)
   if (!is.null(output)) {
     dev.off()
