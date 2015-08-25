@@ -30,14 +30,14 @@ and to use that language *well*.
 
 ## Topics
 
-1.  [Analyzing patient data](01-starting-with-data.html)
-2.  [Creating functions](02-func-R.html)
-3.  [Analyzing multiple data sets](03-loops-R.html)
-4.  [Making choices](04-cond.html)
-5.  [Command-Line Programs](05-cmdline.html)
+1.  [Getting Started](01-starting-with-data.html)
+2.  [Loading data](02-loading-and-addressing.html)
+3.  [Data Structures](03-data-structures.html)
+4.  [Making Functions](04-func-R.html)
+5.  [Making Loops](05-loops-R.html)
 6.  [Best practices for using R and designing programs](06-best-practices-R.html)
 7.  [Dynamic reports with knitr](07-knitr-R.html)
-8.  [Making packages in R](08-making-packages-R.html)
+
 
 ## Other Resources
 
@@ -47,7 +47,7 @@ and to use that language *well*.
 
 ## Supplemental lessons
 
-*   [Introduction to RStudio](01-supp-intro-rstudio.html)
-*   [Addressing data](01-supp-addressing-data.html)
-*   [Understanding factors](01-supp-factors.html)
-*   [Data types and structures](01-supp-data-structures.html)
+*   [Condtionals](01-supp-cond.html)
+*   [Loops in Depth](02-supp-loops-in-depth.html)
+*   [Getting input from Command line](03-supp-cmdline.html)
+*   [Writing packages](04-supp-making-packages-R.html)

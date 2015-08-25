@@ -1,0 +1,329 @@
+---
+layout: page
+title: Programming with R
+subtitle: Loading Data
+minutes: 30
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+> ## Learning Objectives {.objectives}
+> * Read tabular data from a file into a program.
+> * Assign values to variables.
+> * Select individual values and subsections from data.
+> * Perform operations on a data frame of data.
+
+
+The data sets are stored in [comma-separated values](reference.html#comma-separated-values-(csv)) (CSV) format. 
+The first few rows of our first file look like this:
+
+```{r echo = FALSE}
+tmp <- read.csv("sample.csv", header = FALSE, nrows = 5)
+write.table(tmp, quote = FALSE, sep = ",", row.names = FALSE, col.names = FALSE)
+rm(tmp)
+```
+
+We want to:
+
+* Load data into memory,
+* Look at different data types and how to manipulate data
+* Plot some results
+
+To do all that, we'll have to learn a little bit about programming.
+
+### Loading Data
+
+Now that we have our data files, we need to start RStudio. Since we've pre-made a project, the easiest way to do this is to double click on the `SWC_R_exercise.r` file inside our project. RStudio should automatically put us into the correct directory, and show us the files available under the `Files` tab. However, we can also check in the Console:
+
+
+```{r}
+getwd()
+```
+
+Just like in the Unix Shell, we type the command and then press `Enter` (or `return`).
+getwd() shows us the working directory. If we hadn't set up a project beforehand, we could also specifically set a working directory:
+
+```{r, eval=FALSE}
+setwd("C:/Users/Amanda/Desktop/SWC_R_exercise")
+```
+
+But since we're already in that directory, this command has no effect. Now we can load the data into R using `read.csv`:
+
+
+```{r}
+read.csv(file = "sample.csv", header = FALSE)
+```
+
+The expression `read.csv(...)` is a [function call](reference.html#function-call) that asks R to run the function `read.csv`.
+
+`read.csv` has two [arguments](reference.html#argument): the name of the file we want to read, and whether the first line of the file contains names for the columns of data.
+The filename needs to be a character string (or [string](reference.html#string) for short), so we put it in quotes. Assigning the second argument, `header`, to be `FALSE` indicates that the data file does not have column headers. We'll talk more about the value `FALSE`, and its converse `TRUE`, in lesson 04.
+
+> ## Tip {.callout}
+>
+> `read.csv` actually has many more arguments that you may find useful when
+> importing your own data in the future. You can learn more about these
+> options in this supplementary [lesson](01-supp-read-write-csv.html).
+
+The utility of a function is that it will perform its given action on whatever value is passed to the named argument(s).
+For example, in this case if we provided the name of a different file to the argument `file`, `read.csv` would read it instead.
+We'll learn more of the details about functions and their arguments in the next lesson.
+
+Since we didn't tell it to do anything else with the function's output, the console will display the full contents of the file `sample.csv`.
+Try it out.
+
+`read.csv` read the file, but we can't use data unless we assign it to a variable.
+A variable is just a name for a value, such as `x`, `current_temperature`, or `subject_id`.
+We can create a new variable simply by assigning a value to it using `<-`
+
+
+```{r}
+weight_kg <- 55
+```
+
+Once a variable has a value, we can print it by typing the name of the variable and hitting `Enter` (or `return`).
+In general, R will print to the console any object returned by a function or operation *unless* we assign it to a variable.
+
+```{r}
+weight_kg
+```
+
+We can do arithmetic with the variable:
+
+```{r}
+# weight in pounds:
+2.2 * weight_kg
+```
+
+> ## Tip {.callout}
+>
+> We can add comments to our code using the `#` character. It is useful to
+> document our code in this way so that others (and us the next time we
+> read it) have an easier time following what the code is doing.
+
+We can also change an object's value by assigning it a new value:
+
+```{r}
+weight_kg <- 57.5
+# weight in kilograms is now
+weight_kg
+```
+
+If we imagine the variable as a sticky note with a name written on it,
+assignment is like putting the sticky note on a particular value:
+
+<img src="fig/python-sticky-note-variables-01.svg" alt="Variables as Sticky Notes" />
+
+This means that assigning a value to one object does not change the values of other variables.
+For example, let's store the subject's weight in pounds in a variable:
+
+```{r}
+weight_lb <- 2.2 * weight_kg
+# weight in kg...
+weight_kg
+# ...and in pounds
+weight_lb
+```
+
+<img src="fig/python-sticky-note-variables-02.svg" alt="Creating Another Variable" />
+
+and then change `weight_kg`:
+
+```{r}
+weight_kg <- 100.0
+# weight in kg now...
+weight_kg
+# ...and weight in pounds still
+weight_lb
+```
+
+<img src="fig/python-sticky-note-variables-03.svg" alt="Updating a Variable" />
+
+Since `weight_lb` doesn't "remember" where its value came from, it isn't automatically updated when `weight_kg` changes.
+This is different from the way spreadsheets work.
+
+> ## Tip {.callout} 
+>An alternative way to print the value of a variable is to use () around the assignment statement. As an example: `(total_weight <- weight_kg + weight_lb)`, adds the values of `weight_kg` and `weight_lb`, assigns the result to the `total_weight`, and finally prints the assigned value of the variable `total_weight`.
+
+
+Now that we know how to assign things to variables, let's re-run `read.csv` and save its result:
+
+```{r}
+aneurism <- read.csv(file = "sample.csv")
+```
+
+This statement doesn't produce any output because assignment doesn't display anything.
+If we want to check that our data has been loaded, we can print the variable's value.
+However, for large data sets it is convenient to use the function `head` to display only the first few rows of data.
+
+```{r}
+head(aneurism)
+```
+
+> ## Challenge - Assigning values to variables {.challenge}
+>
+> Draw diagrams showing what variables refer to what values after each statement in the following program:
+>
+```{r}
+mass <- 47.5
+age <- 122
+mass <- mass * 2.0
+age <- age - 20
+```
+
+### Manipulating Data
+
+Now that our data is loaded in memory, we can start doing things with it.
+First, let's ask what type of thing `aneurism` is:
+
+```{r}
+class(aneurism)
+```
+
+The output tells us that is a data frame. Think of this structure as a spreadsheet in MS Excel that many of us are familiar with.
+Data frames are very useful for storing data and you will find them elsewhere when programming in R. A typical data frame of experimental data contains individual observations in rows and variables in columns.
+
+We can see the dimensions, or [shape](reference.html#shape-(of-an-array)), of the data frame with the function `dim`:
+
+```{r}
+dim(aneurism)
+```
+
+This tells us that our data frame, `aneurism`, has `r nrow(aneurism)` rows and `r ncol(aneurism)` columns.
+
+If we want to get a single value from the data frame, we can provide an [index](reference.html#index) in square brackets, just as we do in math:
+
+```{r}
+# first value in aneurism
+aneurism[1, 1]
+# middle value in aneurism
+aneurism[30, 20]
+```
+
+An index like `[30, 20]` selects a single element of a data frame, but we can select whole sections as well.
+For example, we can select the first ten days (columns) of values for the first four patients (rows) like this:
+
+```{r}
+aneurism[30:40, 1:3]
+```
+
+The [slice](reference.html#slice) `1:4` means, "Start at index 1 and go to index 4."
+
+The slice does not need to start at 1, e.g. the line below selects rows 5 through 10:
+
+```{r}
+aneurism[1:5, 6:9]
+```
+We can use the function `c`, which stands for **c**ombine, to select non-contiguous values:
+
+```{r}
+aneurism[c(1, 30, 54, 72), c(2, 4, 5)]
+```
+
+We also don't have to provide a slice for either the rows or the columns.
+If we don't include a slice for the rows, R returns all the rows; if we don't include a slice for the columns, R returns all the columns.
+If we don't provide a slice for either rows or columns, e.g. `aneurism[, ]`, R returns the full data frame.
+
+```{r}
+# All columns from row 5
+aneurism[5, ]
+# All rows from column 16
+aneurism[, 6]
+```
+
+### Adding Elements
+
+The function `c()` (for combine) can also be used to add elements to a vector.
+
+```{r}
+z <- 1:10
+z <- c(z, 11)
+z
+z <- c(0, z)
+z
+```
+
+> ## Tip {.callout} 
+>An alternative way to get numbers in a sequence is to use `seq()`. Try the expression `seq(from = 1, to = 10, by = 0.1)` 
+
+
+### Addressing by Name
+
+Columns in an R data frame are named.
+
+```{r column_names}
+colnames(aneurism)
+```
+
+> ## Tip {.callout} 
+>
+> If names are not specified e.g. using `headers=FALSE` in a `read.csv()` function, R assigns default names `V1,V2,...,Vn`
+
+We usually use the `$` operator to address a column by name
+
+```{r named_addressing}
+aneurism$Gender
+```
+
+Named addressing can also be used in square brackets.
+```{r names_addressing_2}
+head(aneurism[ , c('Age','Gender')])
+```
+
+> ## Best Practice {.callout} 
+>
+> Best practice is to address columns by name, often you will create or delete columns and the column position will change.
+
+
+We can use logical vectors to select data from a data frame.
+
+```{r logical_vectors_indexing}
+index <- aneurism$Group == 'Control'
+aneurism[index,]$BloodPressure
+```
+
+Often this operation is written as one line of code:
+
+```{r logical_vectors_indexing2}
+aneurism[aneurism$Group=='Control',]$BloodPressure
+```
+
+> ## Challenge - Using logical indexes {.challenge}
+> 1. Create a scatterplot showing BloodPressure for subjects not in the control group.
+> 2. How many ways are there to index this set of subjects?
+
+
+We are studying aneurism patients. Each row holds the observations for just one patient.
+
+Now let's perform some common mathematical operations to learn about our data.
+When analyzing data we often want to look at partial statistics, such as the maximum value per patient or the average value per day.
+One way to do this is to select the data we want to create a new temporary data frame, and then perform the calculation on this subset:
+
+```{r}
+# first row, all of the columns
+BloodP <- aneurism$BloodPressure
+# max inflammation for patient 1
+max(BloodP)
+```
+
+We don't actually need to store the row in a variable of its own.
+Instead, we can combine the selection and the function call:
+
+```{r}
+# max inflammation for patient 2
+max(aneurism$BloodPressure)
+```
+
+R also has functions for other common calculations, e.g. finding the minimum, mean, median, and standard deviation of the data:
+
+```{r}
+# minimum patient age
+min(aneurism$Age)
+# mean patient age
+mean(aneurism$Age)
+# median patient age
+median(aneurism$Age)
+# standard deviation of patient age
+sd(aneurism$Ag)
+```

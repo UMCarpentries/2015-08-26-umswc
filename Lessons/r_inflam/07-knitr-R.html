@@ -30,7 +30,7 @@
           <h2 class="subtitle">Dynamic reports with knitr</h2>
           <section class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <ul>
@@ -40,11 +40,11 @@
 </section>
 <p><code>Knitr</code> is an R package that makes your code neat, pretty, and shows your notes, code, and output simultaneously in an <code>html</code> document. You create these documents in <code>.Rmd</code> files. You can write in <code>LateX</code> or <code>md</code>.</p>
 <p>knitr extracts R code in the input document (.Rmd), evaluates it and writes the results to the output document (html). There are two types of R code: chunks (code as separate paragraphs) and inline R code.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;knitr&quot;</span>)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;knitr&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)</code></pre></div>
 <p>Restart RStudio. Open a new <code>Rmd</code> file.</p>
 <p>In Rmd, anything between lines that start and end with triple quotes ``` will be run as R code.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars)</code></pre></div>
 <pre class="output"><code>     speed           dist       
  Min.   : 4.0   Min.   :  2.00  
  1st Qu.:12.0   1st Qu.: 26.00  
@@ -55,7 +55,7 @@
 </code></pre>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pencil"></span>Challenge - Using KnitR to produce a report</h2>
+<h2 id="challenge---using-knitr-to-produce-a-report"><span class="glyphicon glyphicon-pencil"></span>Challenge - Using KnitR to produce a report</h2>
 </div>
 <div class="panel-body">
 <ol style="list-style-type: decimal">
