@@ -202,9 +202,9 @@ span <- function(a) {
   return(diff)
 }
 
-dat <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
+inflam <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
 # span of inflammation data
-span(dat)
+span(inflam)
 ```
 
 Notice `span` assigns a value to variable called `diff`. We might very well use a variable with the same name (`diff`) to hold the inflammation data:
@@ -258,8 +258,8 @@ center(z, 3)
 That looks right, so let's try center on our real data. We'll center the inflammation data from day 4 around 0:
 
 ```{r}
-dat <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
-centered <- center(dat[, 4], 0)
+inflam <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
+centered <- center(inflam[, 4], 0)
 head(centered)
 ```
 
@@ -267,11 +267,11 @@ It's hard to tell from the default output whether the result is correct, but the
 
 ```{r}
 # original min
-min(dat[, 4])
+min(inflam[, 4])
 # original mean
-mean(dat[, 4])
+mean(inflam[, 4])
 # original max
-max(dat[, 4])
+max(inflam[, 4])
 # centered min
 min(centered)
 # centered mean
@@ -280,13 +280,13 @@ mean(centered)
 max(centered)
 ```
 
-That seems almost right: the original mean was about `r round(mean(dat[, 4]), 2)`, so the lower bound from zero is now about `r -round(mean(dat[, 4]), 2)`.
+That seems almost right: the original mean was about `r round(mean(inflam[, 4]), 2)`, so the lower bound from zero is now about `r -round(mean(inflam[, 4]), 2)`.
 The mean of the centered data is `r mean(centered)`.
 We can even go further and check that the standard deviation hasn't changed:
 
 ```{r}
 # original standard deviation
-sd(dat[, 4])
+sd(inflam[, 4])
 # centerted standard deviation
 sd(centered)
 ```
@@ -296,14 +296,14 @@ Let's do this instead:
 
 ```{r}
 # difference in standard deviations before and after
-sd(dat[, 4]) - sd(centered)
+sd(inflam[, 4]) - sd(centered)
 ```
 
 Sometimes, a very small difference can be detected due to rounding at very low decimal places.
 R has a useful function for comparing two objects allowing for rounding errors, `all.equal`:
 
 ```{r}
-all.equal(sd(dat[, 4]), sd(centered))
+all.equal(sd(inflam[, 4]), sd(centered))
 ```
 
 It's still possible that our function is wrong, but it seems unlikely enough that we should probably get back to doing our analysis.
@@ -338,12 +338,12 @@ center <- function(data, desired) {
 analyze <- function(filename) {
   # Plots the average, min, and max inflammation over time.
   # Input is character string of a csv file.
-  dat <- read.csv(file = filename, header = FALSE)
-  avg_day_inflammation <- apply(dat, 2, mean)
+  inflam <- read.csv(file = filename, header = FALSE)
+  avg_day_inflammation <- apply(inflam, 2, mean)
   plot(avg_day_inflammation)
-  max_day_inflammation <- apply(dat, 2, max)
+  max_day_inflammation <- apply(inflam, 2, max)
   plot(max_day_inflammation)
-  min_day_inflammation <- apply(dat, 2, min)
+  min_day_inflammation <- apply(inflam, 2, min)
   plot(min_day_inflammation)
 }
 ```
@@ -370,28 +370,28 @@ rescale <- function(v) {
 [01]: 01-starting-with-data.html
 
 ```{r rescale-test, include=FALSE}
-answer <- rescale(dat[, 4])
+answer <- rescale(inflam[, 4])
 min(answer)
 max(answer)
 plot(answer)
-plot(dat[, 4], answer)  # This hasn't been introduced yet, but it may be
+plot(inflam[, 4], answer)  # This hasn't been introduced yet, but it may be
                         # useful to show when explaining the answer.
 ```
 
 ### Defining Defaults
 
-We have passed arguments to functions in two ways: directly, as in `dim(dat)`, and by name, as in `read.csv(file = "data/inflammation-01.csv", header = FALSE)`.
+We have passed arguments to functions in two ways: directly, as in `dim(inflam)`, and by name, as in `read.csv(file = "data/inflammation-01.csv", header = FALSE)`.
 In fact, we can pass the arguments to `read.csv` without naming them:
 
 ```{r}
-dat <- read.csv("data/inflammation-01.csv", FALSE)
+inflam <- read.csv("data/inflammation-01.csv", FALSE)
 ```
 
 However, the position of the arguments matters if they are not named.
 
 ```{r, error = TRUE}
-dat <- read.csv(header = FALSE, file = "data/inflammation-01.csv")
-dat <- read.csv(FALSE, "data/inflammation-01.csv")
+inflam <- read.csv(header = FALSE, file = "data/inflammation-01.csv")
+inflam <- read.csv(FALSE, "data/inflammation-01.csv")
 ```
 
 To understand what's going on, and make our own functions easier to use, let's re-define our `center` function like this:
@@ -481,7 +481,7 @@ This tells us that `read.csv()` has one argument, `file`, that doesn't have a de
 Now we understand why the following gives an error:
 
 ```{r, results="hide", error = TRUE}
-dat <- read.csv(FALSE, "data/inflammation-01.csv")
+inflam <- read.csv(FALSE, "data/inflammation-01.csv")
 ```
 
 It fails because `FALSE` is assigned to `file` and the filename is assigned to the argument `header`.
@@ -499,10 +499,10 @@ rescale <- function(v, lower = 0, upper = 1) {
   result <- (v - L) / (H - L) * (upper - lower) + lower
   return(result)
 }
-answer <- rescale(dat[, 4], lower = 2, upper = 5)
+answer <- rescale(inflam[, 4], lower = 2, upper = 5)
 min(answer)
 max(answer)
-answer <- rescale(dat[, 4], lower = -5, upper = -2)
+answer <- rescale(inflam[, 4], lower = -5, upper = -2)
 min(answer)
 max(answer)
 ```

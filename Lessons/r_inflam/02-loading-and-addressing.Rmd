@@ -19,7 +19,7 @@ The data sets are stored in [comma-separated values](reference.html#comma-separa
 The first few rows of our first file look like this:
 
 ```{r echo = FALSE}
-tmp <- read.csv("sample.csv", header = FALSE, nrows = 5)
+tmp <- read.csv("data/sample.csv", header = FALSE, nrows = 5)
 write.table(tmp, quote = FALSE, sep = ",", row.names = FALSE, col.names = FALSE)
 rm(tmp)
 ```
@@ -50,9 +50,14 @@ setwd("C:/Users/Amanda/Desktop/SWC_R_exercise")
 
 But since we're already in that directory, this command has no effect. Now we can load the data into R using `read.csv`:
 
+```{r echo = FALSE, eval=TRUE}
+tmp <- read.csv("data/sample.csv")
+write.table(tmp, quote = FALSE, sep = ",", row.names = FALSE, col.names = FALSE)
+rm(tmp)
+```
 
-```{r}
-read.csv(file = "sample.csv", header = FALSE)
+```{r eval=FALSE}
+read.csv(file = "data/sample.csv")
 ```
 
 The expression `read.csv(...)` is a [function call](reference.html#function-call) that asks R to run the function `read.csv`.
@@ -150,7 +155,7 @@ This is different from the way spreadsheets work.
 Now that we know how to assign things to variables, let's re-run `read.csv` and save its result:
 
 ```{r}
-aneurism <- read.csv(file = "sample.csv")
+aneurism <- read.csv(file = "data/sample.csv")
 ```
 
 This statement doesn't produce any output because assignment doesn't display anything.

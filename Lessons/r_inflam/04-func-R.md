@@ -138,10 +138,10 @@ Real-life functions will usually be larger than the ones shown here--typically h
 >
 > 
 > ~~~{.r}
-> original <- c("Write", "programs", "for", "people", "not", "computers")
-> wrapper <- "***"  # R interprets a variable with a single value as a vector
+> best_practice <- c("Write", "programs", "for", "people", "not", "computers")
+> asterisk <- "***"  # R interprets a variable with a single value as a vector
 >                    # with one element.
-> fence(original, wrapper)
+> fence(best_practice, asterisk)
 > ~~~
 > 
 > 
@@ -253,7 +253,7 @@ span <- function(a) {
   return(diff)
 }
 
-inflam <- read.csv(file = "inflammation-01.csv", header = FALSE)
+inflam <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
 # span of inflammation data
 span(inflam)
 ~~~
@@ -269,7 +269,7 @@ Notice `span` assigns a value to variable called `diff`. We might very well use 
 
 
 ~~~{.r}
-diff <- read.csv(file = "inflammation-01.csv", header = FALSE)
+diff <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
 # span of inflammation data
 span(diff)
 ~~~
@@ -347,7 +347,7 @@ That looks right, so let's try center on our real data. We'll center the inflamm
 
 
 ~~~{.r}
-inflam <- read.csv(file = "inflammation-01.csv", header = FALSE)
+inflam <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
 centered <- center(inflam[, 4], 0)
 head(centered)
 ~~~
@@ -542,7 +542,7 @@ center <- function(data, desired) {
 > ## Challenge - A more advanced function {.challenge}
 >
 >  + Write a function called `analyze` that takes a filename as a argument and displays the three graphs produced in the [previous lesson][01] (average, min and max inflammation over time).
->  `analyze("inflammation-01.csv")` should produce the graphs already shown, while `analyze("inflammation-02.csv")` should produce corresponding graphs for the second data set. Be sure to document your function with comments.
+>  `analyze("data/inflammation-01.csv")` should produce the graphs already shown, while `analyze("data/inflammation-02.csv")` should produce corresponding graphs for the second data set. Be sure to document your function with comments.
 >  + Write a function `rescale` that takes a vector as input and returns a corresponding vector of values scaled to lie in the range 0 to 1.
 >  (If $L$ and $H$ are the lowest and highest values in the original vector, then the replacement for a value $v$ should be $(v-L) / (H-L)$.)
 >  Be sure to document your function with comments.
@@ -554,20 +554,20 @@ center <- function(data, desired) {
 
 ### Defining Defaults
 
-We have passed arguments to functions in two ways: directly, as in `dim(inflam)`, and by name, as in `read.csv(file = "inflammation-01.csv", header = FALSE)`.
+We have passed arguments to functions in two ways: directly, as in `dim(inflam)`, and by name, as in `read.csv(file = "data/inflammation-01.csv", header = FALSE)`.
 In fact, we can pass the arguments to `read.csv` without naming them:
 
 
 ~~~{.r}
-inflam <- read.csv("inflammation-01.csv", FALSE)
+inflam <- read.csv("data/inflammation-01.csv", FALSE)
 ~~~
 
 However, the position of the arguments matters if they are not named.
 
 
 ~~~{.r}
-inflam <- read.csv(header = FALSE, file = "inflammation-01.csv")
-inflam <- read.csv(FALSE, "inflammation-01.csv")
+inflam <- read.csv(header = FALSE, file = "data/inflammation-01.csv")
+inflam <- read.csv(FALSE, "data/inflammation-01.csv")
 ~~~
 
 
@@ -753,7 +753,7 @@ Now we understand why the following gives an error:
 
 
 ~~~{.r}
-inflam <- read.csv(FALSE, "inflammation-01.csv")
+inflam <- read.csv(FALSE, "data/inflammation-01.csv")
 ~~~
 
 
@@ -791,10 +791,10 @@ It fails because `FALSE` is assigned to `file` and the filename is assigned to t
 > 
 > 
 > ~~~{.r}
-> analyze("inflammation-01.csv")
-> analyze("inflammation-02.csv")
+> analyze("data/inflammation-01.csv")
+> analyze("data/inflammation-02.csv")
 > #...
-> analyze("inflammation-12.csv")
+> analyze("data/inflammation-12.csv")
 > ~~~
 >
 > but the chances of us typing all 12 filenames correctly aren't great, and we'll be even worse off if we get another hundred files.

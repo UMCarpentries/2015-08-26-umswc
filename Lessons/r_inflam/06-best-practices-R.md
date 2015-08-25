@@ -62,14 +62,14 @@ source("my_genius_fxns.R")
 
 
 ~~~{.r}
-dat <- read.csv(file = "/files/dataset-2013-01.csv", header = TRUE)
+UsefulName <- read.csv(file = "/files/dataset-2013-01.csv", header = TRUE)
 ~~~
 
 rather than:
 
 
 ~~~{.r}
-dat <- read.csv(file = "/Users/Karthik/Documents/sannic-project/files/dataset-2013-01.csv", header = TRUE)
+NameYouRemember <- read.csv(file = "/Users/Karthik/Documents/sannic-project/files/dataset-2013-01.csv", header = TRUE)
 ~~~
 
 10. R can run into memory issues. It is a common problem to run out of memory after running R scripts for a long time. In order to inspect your R session objects, you can list the objects, search current packages and remove objects that are currently not in use. A good practice when running long lines of computationally intensive sequential code is to remove temporary objects after they have served their purpose in.

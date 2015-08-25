@@ -93,7 +93,7 @@ This command will work perfectly on your computer, but what if you send your scr
 
 Start RStudio, click on `File -> New Project`. Choose `New Directory`, then `Empty Project`. RStudio will ask you for a Directory Name and where it should create the new project. Lets name our new directory "SWC_R_exercise" and save it to our Desktop by clicking `Browse` and then selecting the `Desktop`, finally, click `Create Project`. Then close RStudio.
 
-On you Desktop, you should now have a new folder called `SWC_R_exercise`, that contains two files: `.Rhistory` and `SWC_R_exercise.R`. 
+On you Desktop, you should now have a new folder called `SWC_R_exercise`, that contains two files: `.Rhistory` and `SWC_R_exercise.R`. Before we get our data, lets make a folder for it called `Data` inside the `SWC_R_exercise` folder.
 
 Now, lets get the data files and store them in our project folder. Our datasets are at <a href="https://github.com/UMSWC/2015-08-26-umswc/tree/gh-pages/Lessons/r_inflam/data"> datasets</a>.
 
@@ -118,7 +118,7 @@ We could go to this page and download each one individually, then move each one 
 cd ~/Desktop/
 curl -O https://raw.githubusercontent.com/UMSWC/2015-08-26-umswc/gh-pages/Lessons/r_inflam/data/SWC_R.zip
 unzip SWC_R.zip -d SWC_R
-mv SWC_R/* SWC_R_exercise/
+mv SWC_R/* SWC_R_exercise/Data/
 ~~~
 We `cd` to the `Desktop` directory, so that the zipfile will be downloaded there
 `-O` tells curl to save the zipfile as the same filename it has on the web
@@ -138,7 +138,7 @@ We can check that everything downloaded correctly by looking in the `SWC_R_exerc
 
 
 ~~~{.r}
-cd ~/Desktop/SWC_R_exercise/
+cd ~/Desktop/SWC_R_exercise/Data/
 ls -lh
 ~~~
 
@@ -146,24 +146,75 @@ ls -lh
 
 
 ~~~{.output}
-total 248
--rw-r--r--  1 Amanda  staff   2.0K Jul 29 14:00 car-speeds-cleaned.csv
--rw-r--r--  1 Amanda  staff   1.6K Jul 29 14:00 car-speeds.csv
--rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-01.csv
--rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-02.csv
--rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-03.csv
--rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-04.csv
--rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-05.csv
--rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-06.csv
--rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-07.csv
--rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-08.csv
--rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-09.csv
--rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-10.csv
--rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-11.csv
--rw-r--r--  1 Amanda  staff   5.2K Jul 29 14:00 inflammation-12.csv
--rw-r--r--  1 Amanda  staff   4.9K Jul 29 14:00 sample.csv
--rw-r--r--  1 Amanda  staff    12B Jul 29 14:00 small-01.csv
--rw-r--r--  1 Amanda  staff    15B Jul 29 14:00 small-02.csv
--rw-r--r--  1 Amanda  staff    12B Jul 29 14:00 small-03.csv
+bash: line 0: cd: /Users/Amanda/Desktop/SWC_R_exercise/Data/: No such file or directory
+total 2768
+-rw-r--r--   1 Amanda  staff   7.3K Aug 25 17:35 01-starting-with-data.Rmd
+-rw-r--r--@  1 Amanda  staff   8.5K Aug 25 15:18 01-starting-with-data.md
+-rw-r--r--   1 Amanda  staff    12K Aug 25 18:17 01-supp-cond.Rmd
+-rw-r--r--   1 Amanda  staff    12K Jul 29 14:00 01-supp-cond.md
+-rw-r--r--   1 Amanda  staff    11K Aug 25 18:15 02-loading-and-addressing.Rmd
+-rw-r--r--   1 Amanda  staff    19K Aug 25 18:15 02-loading-and-addressing.md
+-rw-r--r--   1 Amanda  staff   6.6K Aug 25 18:18 02-supp-loops-in-depth.Rmd
+-rw-r--r--   1 Amanda  staff   7.0K Jul 29 14:00 02-supp-loops-in-depth.md
+-rw-r--r--   1 Amanda  staff    15K Aug 25 10:48 03-data-structures.Rmd
+-rw-r--r--   1 Amanda  staff    42K Aug 25 17:01 03-data-structures.html
+-rw-r--r--   1 Amanda  staff    20K Aug 25 10:48 03-data-structures.md
+-rw-r--r--   1 Amanda  staff    14K Jul 29 14:00 03-supp-cmdline.Rmd
+-rw-r--r--   1 Amanda  staff    17K Jul 29 14:00 03-supp-cmdline.md
+-rw-r--r--   1 Amanda  staff    21K Aug 25 18:21 04-func-R.Rmd
+-rw-r--r--@  1 Amanda  staff    21K Aug 21 13:06 04-func-R.md
+-rw-r--r--   1 Amanda  staff   4.3K Jul 29 14:00 04-supp-making-packages-R.Rmd
+-rw-r--r--   1 Amanda  staff   4.3K Jul 29 14:00 04-supp-making-packages-R.md
+-rw-r--r--   1 Amanda  staff    11K Aug 25 18:24 05-loops-R.Rmd
+-rw-r--r--   1 Amanda  staff    15K Jul 29 14:00 05-loops-R.md
+-rw-r--r--   1 Amanda  staff   5.2K Aug 25 18:25 06-best-practices-R.Rmd
+-rw-r--r--   1 Amanda  staff   5.1K Jul 29 14:00 06-best-practices-R.md
+-rw-r--r--   1 Amanda  staff   1.3K Aug 25 18:26 07-knitr-R.Rmd
+-rw-r--r--   1 Amanda  staff   1.5K Jul 29 14:00 07-knitr-R.md
+-rw-r--r--   1 Amanda  staff   673B Jul 29 14:00 AUTHORS
+-rw-r--r--   1 Amanda  staff   1.4K Jul 29 14:00 CONDUCT.md
+-rw-r--r--   1 Amanda  staff   1.8K Jul 29 14:00 CONTRIBUTING.md
+-rw-r--r--   1 Amanda  staff   5.3K Jul 29 14:00 LICENSE.html
+-rw-r--r--   1 Amanda  staff   3.2K Jul 29 14:00 LICENSE.md
+-rw-r--r--   1 Amanda  staff   2.2K Jul 29 14:00 Makefile
+-rw-r--r--   1 Amanda  staff   3.6K Jul 29 14:00 README.md
+drwxr-xr-x   6 Amanda  staff   204B Jul 29 14:00 _includes
+drwxr-xr-x   3 Amanda  staff   102B Jul 29 14:00 _layouts
+-rw-r--r--   1 Amanda  staff   655B Jul 29 14:00 arith.R
+-rw-r--r--   1 Amanda  staff   706B Jul 29 14:00 check.R
+-rw-r--r--   1 Amanda  staff   119B Jul 29 14:00 count-stdin.R
+drwxr-xr-x   6 Amanda  staff   204B Jul 29 14:00 css
+drwxr-xr-x  21 Amanda  staff   714B Aug 23 22:16 data
+-rw-r--r--   1 Amanda  staff   3.3K Jul 29 14:00 discussion.html
+-rw-r--r--   1 Amanda  staff   1.1K Jul 29 14:00 discussion.md
+drwxr-xr-x  52 Amanda  staff   1.7K Aug 24 12:59 fig
+drwxr-xr-x   7 Amanda  staff   238B Aug 25 10:48 figure
+-rw-r--r--   1 Amanda  staff   347B Jul 29 14:00 find-pattern.R
+-rw-r--r--   1 Amanda  staff   841K Jul 29 14:00 ggplot.pdf
+-rw-r--r--   1 Amanda  staff   4.1K Jul 29 14:00 guide.html
+-rw-r--r--   1 Amanda  staff   2.0K Jul 29 14:00 guide.md
+drwxr-xr-x   3 Amanda  staff   102B Jul 29 14:00 img
+-rw-r--r--   1 Amanda  staff   4.3K Aug 25 17:06 index.html
+-rw-r--r--@  1 Amanda  staff   1.7K Aug 25 17:06 index.md
+-rw-r--r--   1 Amanda  staff    10K Jul 29 14:00 instructors.Rmd
+-rw-r--r--   1 Amanda  staff    25K Jul 29 14:00 instructors.html
+-rw-r--r--   1 Amanda  staff    14K Jul 29 14:00 instructors.md
+drwxr-xr-x   4 Amanda  staff   136B Jul 29 14:00 js
+-rw-r--r--   1 Amanda  staff   386B Jul 29 14:00 line-count.R
+-rw-r--r--   1 Amanda  staff   3.6K Jul 29 14:00 notes.txt
+-rw-r--r--   1 Amanda  staff    63B Jul 29 14:00 print-args-trailing.R
+-rw-r--r--   1 Amanda  staff    44B Jul 29 14:00 print-args.R
+-rw-r--r--   1 Amanda  staff   217B Jul 29 14:00 readings-01.R
+-rw-r--r--   1 Amanda  staff   224B Jul 29 14:00 readings-02.R
+-rw-r--r--   1 Amanda  staff   239B Jul 29 14:00 readings-03.R
+-rw-r--r--   1 Amanda  staff   442B Jul 29 14:00 readings-04.R
+-rw-r--r--   1 Amanda  staff   550B Jul 29 14:00 readings-05.R
+-rw-r--r--   1 Amanda  staff   640B Jul 29 14:00 readings-06.R
+-rw-r--r--   1 Amanda  staff   766B Jul 29 14:00 readings-usage.R
+-rw-r--r--   1 Amanda  staff    10K Jul 29 14:00 reference.html
+-rw-r--r--   1 Amanda  staff   5.8K Jul 29 14:00 reference.md
+-rw-r--r--   1 Amanda  staff    49B Jul 29 14:00 requirements.txt
+-rw-r--r--   1 Amanda  staff    14B Jul 29 14:00 session-info.R
+drwxr-xr-x   8 Amanda  staff   272B Jul 29 14:00 tools
 
 ~~~
