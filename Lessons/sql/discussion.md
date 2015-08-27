@@ -28,7 +28,7 @@ directory.
     $ cd; cd Desktop
     $ mkdir swc_sql 
     $ cd swc_sql
-    $ curl http://files.software-carpentry.org/survey.db
+    $ curl -O http://files.software-carpentry.org/survey.db
 
 
 First, load the example database into SQLite. 
