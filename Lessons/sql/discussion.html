@@ -36,10 +36,11 @@
 <li>Mac OS X: <code>sqlite3</code> comes pre-installed on Mac OS X.</li>
 <li>Linux: <code>sqlite3</code> comes pre-installed on Linux.</li>
 </ul>
-<p>Create a directory where you will carry out the exercises for this lesson, and change to it using the <code>cd</code> command. Download the file <a href="http://files.software-carpentry.org/survey.db">survey.db</a> into this directory.</p>
-<pre><code>$ mkdir swc_sql 
+<p>Using Git Bash, create a directory where you will carry out the exercises for this lesson, and change to it using the <code>cd</code> command. Download the file <a href="http://files.software-carpentry.org/survey.db">survey.db</a> into this directory.</p>
+<pre><code>$ cd; cd Desktop
+$ mkdir swc_sql 
 $ cd swc_sql
-$ wget http://files.software-carpentry.org/survey.db</code></pre>
+$ curl -O http://files.software-carpentry.org/survey.db</code></pre>
 <p>First, load the example database into SQLite. On the shell command line, type</p>
 <pre><code>sqlite3 survey.db</code></pre>
 <p>This command instructs SQLite to load the database in the <code>survey.db</code> file.</p>

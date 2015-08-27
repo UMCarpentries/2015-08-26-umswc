@@ -21,13 +21,14 @@ First, download and install SQLite if it is not already installed on your operat
 * Mac OS X: <code>sqlite3</code> comes pre-installed on Mac OS X.
 * Linux: <code>sqlite3</code> comes pre-installed on Linux.
 
-Create a directory where you will carry out the exercises for this lesson, and
+Using Git Bash, create a directory where you will carry out the exercises for this lesson, and
 change to it using the <code>cd</code> command. Download the file [survey.db](http://files.software-carpentry.org/survey.db) into this
 directory.
 
+    $ cd; cd Desktop
     $ mkdir swc_sql 
     $ cd swc_sql
-    $ wget http://files.software-carpentry.org/survey.db
+    $ curl -O http://files.software-carpentry.org/survey.db
 
 
 First, load the example database into SQLite. 
